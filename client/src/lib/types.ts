@@ -30,3 +30,9 @@ export const UserSchema = z.object({
 })
 
 export type UserSchemaType = z.infer<typeof UserSchema>
+
+export type CustomError = Error & {
+  response?: {
+    data?: { message?: string }
+  }
+}

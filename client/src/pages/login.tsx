@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import useLogin from "@/hooks/user/useLogin"
+import useLogin from "@/hooks/user/use-login"
 import { LoginSchema, LoginSchemaType } from "@/lib/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -29,6 +29,8 @@ export default function Login() {
   })
 
   const { isLoading, loginUserHandler } = useLogin()
+
+  const isDisabled = isLoading || isSubmitting
 
   const onSubmit = async (formData: LoginSchemaType) => {
     await loginUserHandler(formData)
@@ -50,6 +52,7 @@ export default function Login() {
             {...register("email")}
             type="email"
             placeholder="e.g. john_doe@gmail.com"
+            disabled={isDisabled}
           />
           {errors.email && (
             <p className="text-sm text-destructive">{`${errors.email.message}`}</p>
@@ -61,6 +64,7 @@ export default function Login() {
             {...register("password")}
             type="password"
             placeholder="e.g. 123456"
+            disabled={isDisabled}
           />
           {errors.password && (
             <p className="text-sm text-destructive">{`${errors.password.message}`}</p>
@@ -68,7 +72,7 @@ export default function Login() {
         </div>
       </CardContent>
       <CardFooter>
-        <Button className="w-full" disabled={isSubmitting || isLoading}>
+        <Button className="w-full" disabled={isDisabled}>
           {isSubmitting ? <Loader label="Logging in" /> : <span>Login</span>}
         </Button>
       </CardFooter>
