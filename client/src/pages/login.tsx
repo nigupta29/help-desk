@@ -55,7 +55,7 @@ export default function Login() {
             disabled={isDisabled}
           />
           {errors.email && (
-            <p className="text-sm text-destructive">{`${errors.email.message}`}</p>
+            <p className="text-xs text-destructive">{`${errors.email.message}`}</p>
           )}
         </div>
         <div className="grid gap-2">
@@ -67,7 +67,7 @@ export default function Login() {
             disabled={isDisabled}
           />
           {errors.password && (
-            <p className="text-sm text-destructive">{`${errors.password.message}`}</p>
+            <p className="text-xs text-destructive">{`${errors.password.message}`}</p>
           )}
         </div>
       </CardContent>
