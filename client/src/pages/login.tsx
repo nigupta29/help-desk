@@ -1,4 +1,3 @@
-import { loginUserAPI } from "@/api/auth"
 import Loader from "@/components/layouts/loader"
 import { Button } from "@/components/ui/button"
 import {
@@ -10,6 +9,7 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import useLogin from "@/hooks/user/useLogin"
 import { LoginSchema, TLogin } from "@/lib/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -23,17 +23,15 @@ export default function Login() {
   } = useForm<TLogin>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
-      email: "",
-      password: ""
+      email: "john_doe@gmail.com",
+      password: "123456"
     }
   })
 
+  const { isLoading, loginUserHandler } = useLogin()
+
   const onSubmit = async (formData: TLogin) => {
-    const { email, password } = formData
-
-    const data = await loginUserAPI({ email, password })
-    console.log(data)
-
+    await loginUserHandler(formData)
     reset()
   }
 
@@ -70,7 +68,7 @@ export default function Login() {
         </div>
       </CardContent>
       <CardFooter>
-        <Button className="w-full" disabled={isSubmitting}>
+        <Button className="w-full" disabled={isSubmitting || isLoading}>
           {isSubmitting ? <Loader label="Logging in" /> : <span>Login</span>}
         </Button>
       </CardFooter>
