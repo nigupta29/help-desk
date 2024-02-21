@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom"
 
 import AppLayout from "./components/layouts/app-layout"
-import AuthForm from "./components/layouts/auth-form"
+import AuthFormLayout from "./components/layouts/auth-form-layout"
 import ProtectedRoute from "./components/layouts/protected-route"
 import Dashboard from "./pages/dashboard"
 import Home from "./pages/home"
@@ -12,9 +12,8 @@ export default function App() {
   return (
     <Routes>
       <Route element={<AppLayout />}>
-
         <Route index element={<Home />} />
-        <Route element={<AuthForm />}>
+        <Route element={<AuthFormLayout />}>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
         </Route>
