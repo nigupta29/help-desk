@@ -10,7 +10,7 @@ const router = Router()
 
 router.post("/login", loginUser)
 router.post("/register", registerUser)
-router.post("/check", protectRoute, checkUserSession)
+router.get("/check", protectRoute, checkUserSession)
 router.post("/logout", protectRoute, logoutUser)
 
 export default router
