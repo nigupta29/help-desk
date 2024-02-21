@@ -1,11 +1,11 @@
-import { TLogin } from "@/lib/types"
+import { LoginSchemaType, UserSchema } from "@/lib/types"
 import { axiosInstance } from "@/lib/utils"
 import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
 
-const loginUserAPI = async ({ email, password }: TLogin) => {
+const loginUserAPI = async ({ email, password }: LoginSchemaType) => {
   const res = await axiosInstance.post("/auth/login", { email, password })
-  return res.data.data
+  return UserSchema.parseAsync(res.data.data.user)
 }
 
 export default function useLogin() {
@@ -13,10 +13,15 @@ export default function useLogin() {
     mutationFn: loginUserAPI,
     mutationKey: ["login"],
     onSuccess: async (data) => {
-      console.log(data)
+      // console.log(data)
     },
     onError(error) {
-      toast.error(error?.response?.data?.message)
+      console.log(error)
+      toast.error(
+        error?.response?.data?.message ||
+          error?.message[0]?.message ||
+          error.message
+      )
     }
   })
 

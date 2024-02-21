@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import useLogin from "@/hooks/user/useLogin"
-import { LoginSchema, TLogin } from "@/lib/types"
+import { LoginSchema, LoginSchemaType } from "@/lib/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
@@ -20,7 +20,7 @@ export default function Login() {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset
-  } = useForm<TLogin>({
+  } = useForm<LoginSchemaType>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
       email: "john_doe@gmail.com",
@@ -30,7 +30,7 @@ export default function Login() {
 
   const { isLoading, loginUserHandler } = useLogin()
 
-  const onSubmit = async (formData: TLogin) => {
+  const onSubmit = async (formData: LoginSchemaType) => {
     await loginUserHandler(formData)
     reset()
   }
