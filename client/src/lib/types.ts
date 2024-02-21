@@ -53,6 +53,24 @@ export const UserSchema = z.object({
 
 export type UserSchemaType = z.infer<typeof UserSchema>
 
+/* Product Schema */
+const ProductSchema = z.object({
+  id: z.string({
+    required_error: "Id is required",
+    invalid_type_error: "Id must be a string"
+  }),
+  name: z.string({
+    required_error: "Product name is required",
+    invalid_type_error: "Product name must be a string"
+  }),
+})
+// export type ProductSchemaType = z.infer<typeof ProductSchema>
+
+export const ProductsSchema = z.array(ProductSchema)
+export type ProductsSchemaType = z.infer<typeof ProductsSchema>
+
+
+
 /* CUSTOM ERROR to Explicitly handle AxiosError */
 export type CustomError = Error & {
   response?: {
