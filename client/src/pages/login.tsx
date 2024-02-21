@@ -72,7 +72,7 @@ export default function Login() {
         </div>
       </CardContent>
       <CardFooter>
-        <Button className="w-full" disabled={isDisabled}>
+        <Button className="w-full" disabled={isDisabled} type="submit">
           {isSubmitting ? <Loader label="Logging in" /> : <span>Login</span>}
         </Button>
       </CardFooter>
