@@ -15,8 +15,6 @@ export default function useTickets() {
   } = useQuery({
     queryKey: ["tickets"],
     queryFn: getTicketsAPI,
-    staleTime: 60 * 1000,
-    gcTime: 60 * 1000
   })
 
   if (error) {

@@ -12,11 +12,12 @@ export default function LogoutButton() {
   const handleLogout = async () => {
     try {
       await axiosInstance.post("/auth/logout")
-      navigate("/")
-      removeUser()
       toast.info("Logged Out Succesfully")
     } catch (error) {
       showErrorMessage(error as Error)
+    } finally {
+      removeUser()
+      navigate("/")
     }
   }
 
