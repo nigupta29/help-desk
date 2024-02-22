@@ -26,3 +26,18 @@ export const createTicket = asyncHandler(
     })
   }
 )
+
+export const getTickets = asyncHandler(async (req: Request, res: Response) => {
+  const { userId } = req
+  const tickets = await prisma.ticket.findMany({
+    where: { authorUserId: userId },
+  })
+
+  res.status(201).json({
+    message: "success",
+    data: {
+      total: tickets.length,
+      tickets,
+    },
+  })
+})
