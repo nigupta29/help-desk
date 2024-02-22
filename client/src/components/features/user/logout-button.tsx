@@ -22,7 +22,7 @@ export default function LogoutButton() {
 
   return (
     <Button
-      variant={"outline"}
+      variant={"destructive"}
       className="justify-start gap-2"
       onClick={handleLogout}
     >

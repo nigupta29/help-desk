@@ -7,6 +7,7 @@ import {
   MegaphoneIcon,
   TicketSlashIcon
 } from "lucide-react"
+import UserDropdown from "@/components/features/user/user-dropdown"
 
 export default function Sidebar() {
   return (
@@ -30,6 +31,7 @@ export default function Sidebar() {
           Icon={MegaphoneIcon}
         />
       </div>
+      <UserDropdown />
       <CreateTicket />
     </div>
   )
