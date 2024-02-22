@@ -7,6 +7,7 @@ import Dashboard from "./pages/dashboard"
 import Home from "./pages/home"
 import Login from "./pages/login"
 import Register from "./pages/register"
+import DashboardLayout from "./components/layouts/dashboard/dashboard-layout"
 
 export default function App() {
   return (
@@ -19,7 +20,10 @@ export default function App() {
         </Route>
 
         <Route element={<ProtectedRoute />}>
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="dashboard" element={<DashboardLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="*" element={<Dashboard />} />
+          </Route>
         </Route>
       </Route>
     </Routes>
