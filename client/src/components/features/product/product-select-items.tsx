@@ -12,7 +12,7 @@ export default function ProductSelectItems() {
   return (
     <>
       {products.map((item) => (
-        <SelectItem value={item.id}>{item.name}</SelectItem>
+        <SelectItem key={item.name} value={item.id}>{item.name}</SelectItem>
       ))}
     </>
   )

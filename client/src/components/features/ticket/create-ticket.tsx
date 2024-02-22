@@ -19,7 +19,7 @@ export default function CreateTicket() {
           <PencilLineIcon size={20} />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-xl">
+      <DialogContent className=" sm:max-w-xl">
         <DialogHeader>
           <DialogTitle>Create Ticket</DialogTitle>
           <DialogDescription>

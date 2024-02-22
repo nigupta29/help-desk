@@ -14,11 +14,13 @@ export default function useProducts() {
     error
   } = useQuery({
     queryKey: ["products"],
-    queryFn: getProductsAPI
+    queryFn: getProductsAPI,
+    staleTime: 60 * 1000,
+    gcTime: 60 * 1000
   })
 
   if (error) {
-    showErrorMessage
+    showErrorMessage(error)
   }
 
   return { products, isLoading }

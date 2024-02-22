@@ -91,7 +91,7 @@ export default function Register() {
       <CardFooter>
         <Button className="w-full" disabled={isDisabled} type="submit">
           {isSubmitting ? (
-            <Loader label="Creating" />
+            <Loader label="Creating account" />
           ) : (
             <span>Create Account</span>
           )}
