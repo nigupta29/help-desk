@@ -8,6 +8,7 @@ import Home from "./pages/home"
 import Login from "./pages/login"
 import Register from "./pages/register"
 import DashboardLayout from "./components/layouts/dashboard/dashboard-layout"
+import Ticket from "./pages/ticket"
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="dashboard" element={<DashboardLayout />}>
             <Route index element={<Dashboard />} />
+            <Route path="tickets" element={<Ticket />} />
             <Route path="*" element={<Dashboard />} />
           </Route>
         </Route>

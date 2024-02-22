@@ -64,10 +64,9 @@ const ProductSchema = z.object({
     invalid_type_error: "Product name must be a string"
   })
 })
-// export type ProductSchemaType = z.infer<typeof ProductSchema>
-
 export const ProductsSchema = z.array(ProductSchema)
-export type ProductsSchemaType = z.infer<typeof ProductsSchema>
+// export type ProductSchemaType = z.infer<typeof ProductSchema>
+// export type ProductsSchemaType = z.infer<typeof ProductsSchema>
 
 /* NEW TICKET SCHEMA */
 export const NewTicketSchema = z.object({
@@ -141,6 +140,7 @@ export const TicketSchema = NewTicketSchema.extend({
     .datetime()
 })
 export type TicketSchemaType = z.infer<typeof TicketSchema>
+export const TicketsSchema = z.array(TicketSchema)
 
 /* CUSTOM ERROR to Explicitly handle AxiosError */
 export type CustomError = Error & {
