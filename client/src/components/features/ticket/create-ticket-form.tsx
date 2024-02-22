@@ -24,9 +24,12 @@ import { NewTicketSchema, NewTicketSchemaType } from "@/lib/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import ProductSelectItems from "../product/product-select-items"
+import useCreateTicketModal from "@/hooks/ticket/use-create-ticket-modal"
 
 export default function CreateTicketForm() {
   const user = useUserStore((state) => state.user)
+  const toggleModal = useCreateTicketModal((state) => state.toggle)
+
   const { createTicketHandler, isLoading } = useCreateTicket()
 
   const form = useForm<NewTicketSchemaType>({
@@ -43,6 +46,7 @@ export default function CreateTicketForm() {
   const onSubmit = async (values: NewTicketSchemaType) => {
     await createTicketHandler(values)
     form.reset()
+    toggleModal()
   }
 
   return (

@@ -15,8 +15,7 @@ export default function useCreateTicket() {
   const { mutateAsync: createTicketHandler, isPending: isLoading } =
     useMutation({
       mutationFn: createTicketAPI,
-      onSuccess: (data) => {
-        //  do something with data
+      onSuccess: () => {
         toast.success("Ticket Created")
         navigate("/dashboard")
       },

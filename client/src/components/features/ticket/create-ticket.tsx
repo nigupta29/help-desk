@@ -9,10 +9,14 @@ import {
 } from "@/components/ui/dialog"
 import { PencilLineIcon } from "lucide-react"
 import CreateTicketForm from "./create-ticket-form"
+import useCreateTicketModal from "@/hooks/ticket/use-create-ticket-modal"
 
 export default function CreateTicket() {
+  const isOpen = useCreateTicketModal((state) => state.open)
+  const toggleModal = useCreateTicketModal((state) => state.toggle)
+
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={toggleModal}>
       <DialogTrigger asChild>
         <Button size={"lg"} variant={"default"}>
           <span className="mr-2">Create Ticket</span>
