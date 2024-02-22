@@ -23,11 +23,11 @@ export default function LogoutButton() {
   return (
     <Button
       variant={"destructive"}
-      className="justify-start gap-2"
+      className="gap-2 md:justify-start"
       onClick={handleLogout}
     >
       <LogOutIcon size={20} />
-      <span className="capitalize">Logout</span>
+      <span className="hidden capitalize md:block">Logout</span>
     </Button>
   )
 }

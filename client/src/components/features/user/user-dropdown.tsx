@@ -13,7 +13,7 @@ export default function UserDropdown() {
   return (
     <Collapsible>
       <CollapsibleContent>
-        <div className="mb-2 flex flex-col gap-2 rounded-md border p-2">
+        <div className="md:-2 mb-2 flex flex-col gap-2 rounded-md border p-1">
           <SidebarItem
             href="/dashboard/profile"
             label="Profile"
@@ -24,7 +24,7 @@ export default function UserDropdown() {
       </CollapsibleContent>
       <Button
         variant="ghost"
-        className="h-12 w-full justify-start gap-2"
+        className="h-12 w-full gap-2 md:justify-start"
         asChild
       >
         <CollapsibleTrigger>

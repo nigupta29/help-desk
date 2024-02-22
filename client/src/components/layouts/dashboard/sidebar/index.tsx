@@ -11,7 +11,7 @@ import UserDropdown from "@/components/features/user/user-dropdown"
 
 export default function Sidebar() {
   return (
-    <div className="flex h-full w-full flex-col gap-5 p-5">
+    <div className="flex h-full w-full flex-col gap-5 p-1 py-5 md:p-5">
       <Logo />
       <Separator />
       <div className="flex flex-grow flex-col space-y-2">

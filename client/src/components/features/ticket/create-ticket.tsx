@@ -19,7 +19,7 @@ export default function CreateTicket() {
     <Dialog open={isOpen} onOpenChange={toggleModal}>
       <DialogTrigger asChild>
         <Button size={"lg"} variant={"default"}>
-          <span className="mr-2">Create Ticket</span>
+          <span className="mr-2 hidden md:block">Create Ticket</span>
           <PencilLineIcon size={20} />
         </Button>
       </DialogTrigger>

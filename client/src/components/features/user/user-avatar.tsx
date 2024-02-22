@@ -19,7 +19,7 @@ export default function UserAvatar() {
         <AvatarImage src={""} alt={`${initials}'s Avatar`} />
         <AvatarFallback>{initials}</AvatarFallback>
       </Avatar>
-      <span className="capitalize">{user?.name}</span>
+      <span className="hidden capitalize md:block">{user?.name}</span>
     </>
   )
 }
