@@ -1,6 +1,7 @@
 import { TableCell, TableRow } from "@/components/ui/table"
 import useProducts from "@/hooks/product/use-products"
 import { TicketSchemaType } from "@/lib/types"
+import { getRelativeDate } from "@/lib/utils"
 import { useMemo } from "react"
 
 type Props = {
@@ -20,7 +21,9 @@ export default function TicketTableRow({ ticket }: Props) {
       <TableCell>{product}</TableCell>
       <TableCell>{ticket.status}</TableCell>
       <TableCell>{ticket.priority}</TableCell>
-      <TableCell className="text-right">{ticket.updatedAt}</TableCell>
+      <TableCell className="text-right">
+        {getRelativeDate(ticket.updatedAt)}
+      </TableCell>
     </TableRow>
   )
 }
