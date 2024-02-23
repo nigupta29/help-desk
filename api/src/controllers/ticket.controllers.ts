@@ -41,3 +41,21 @@ export const getTickets = asyncHandler(async (req: Request, res: Response) => {
     },
   })
 })
+
+export const getTicketById = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { ticketId } = req.params
+    const { userId } = req
+
+    const ticket = await prisma.ticket.findUniqueOrThrow({
+      where: { id: ticketId, authorUserId: userId },
+    })
+
+    res.status(201).json({
+      message: "success",
+      data: {
+        ticket,
+      },
+    })
+  }
+)
