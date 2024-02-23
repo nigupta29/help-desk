@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom"
 export default function Ticket() {
   const { ticketId } = useParams()
   const { ticket, isLoading } = useTicket(ticketId as string)
-  const { productName } = useProductDetails(ticket?.id as string)
+  const { productName } = useProductDetails(ticket?.productId as string)
 
   if (isLoading) {
     return <Loader label={"Hang on! We are fetching your ticket details."} />

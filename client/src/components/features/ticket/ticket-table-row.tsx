@@ -10,7 +10,7 @@ type Props = {
 }
 
 export default function TicketTableRow({ ticket }: Props) {
-  const { productName } = useProductDetails(ticket.id)
+  const { productName } = useProductDetails(ticket.productId)
 
   return (
     <TableRow key={ticket.id}>
