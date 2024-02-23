@@ -16,7 +16,7 @@ export default function TicketTable() {
   const { tickets, isLoading } = useTickets()
 
   if (isLoading) {
-    return <Loader label={"Hang on! We are fetching you Tickets."} />
+    return <Loader label={"Hang on! We are fetching your Tickets."} />
   }
 
   if (tickets.length === 0) {
@@ -36,7 +36,8 @@ export default function TicketTable() {
           <TableHead>Product</TableHead>
           <TableHead>Status</TableHead>
           <TableHead>Priority</TableHead>
-          <TableHead className="text-right">Updates</TableHead>
+          <TableHead>Updates</TableHead>
+          <TableHead>Action</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -46,7 +47,7 @@ export default function TicketTable() {
       </TableBody>
       <TableFooter>
         <TableRow>
-          <TableCell colSpan={4}>Total Tickets:</TableCell>
+          <TableCell colSpan={5}>Total Tickets:</TableCell>
           <TableCell className="text-right">{tickets.length}</TableCell>
         </TableRow>
       </TableFooter>
