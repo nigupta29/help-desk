@@ -87,11 +87,9 @@ export const logoutUser = asyncHandler(async (req: Request, res: Response) => {
 
 export const checkUserSession = asyncHandler(
   async (req: Request, res: Response) => {
-    const { userId } = req
-
     const user = await prisma.user.findUnique({
       where: {
-        id: userId,
+        id: req.user.id,
       },
       select: {
         id: true,
@@ -106,7 +104,7 @@ export const checkUserSession = asyncHandler(
       throw new Error("Invalid User Details")
     }
 
-    generateToken(res, userId)
+    generateToken(res, user.id)
     res.status(200).json({ message: "verified", data: { user } })
   }
 )

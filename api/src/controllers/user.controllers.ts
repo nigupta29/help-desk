@@ -4,9 +4,10 @@ import prisma from "../config/db"
 
 export const getUserDetails = asyncHandler(
   async (req: Request, res: Response) => {
+    const { id } = req.user
     const user = await prisma.user.findUniqueOrThrow({
       where: {
-        id: req.userId,
+        id,
       },
     })
 

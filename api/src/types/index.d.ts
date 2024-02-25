@@ -5,11 +5,8 @@ declare global {
         id: string
         role: string
       }
-
-      userId: string
     }
   }
 }
 
 export {}
-

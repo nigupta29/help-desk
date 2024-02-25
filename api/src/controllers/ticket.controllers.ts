@@ -16,7 +16,7 @@ export const createTicket = asyncHandler(
     const { title, description, productId } = NewTicketBody.parse(req.body)
 
     const ticket = await prisma.ticket.create({
-      data: { title, description, productId, authorUserId: req.userId },
+      data: { title, description, productId, authorUserId: req.user.id },
     })
 
     res.status(201).json({

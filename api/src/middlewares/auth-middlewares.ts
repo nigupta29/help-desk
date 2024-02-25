@@ -27,8 +27,7 @@ export const protectRoute = asyncHandler(
           throw new Error("Not authorized, invalid token")
         }
 
-        req.user = { id: userId, role: user.role }
-        req.userId = userId
+        req.user = { id: user.id, role: user.role }
         next()
       } catch (error) {
         res.status(401)
