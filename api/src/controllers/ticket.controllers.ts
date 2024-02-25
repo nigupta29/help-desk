@@ -30,11 +30,23 @@ export const createTicket = asyncHandler(
 
 export const getTickets = asyncHandler(async (req: Request, res: Response) => {
   const { user } = req
+  const whereClause = user.role === "USER" ? { authorUserId: user.id } : {}
+
   const tickets = await prisma.ticket.findMany({
-    where: user.role === "USER" ? { authorUserId: user.id } : {},
+    where: whereClause,
+    select: {
+      id: true,
+      title: true,
+      priority: true,
+      status: true,
+      product: true,
+      ticketAuthor: { select: userSelector },
+      supportUser: { select: userSelector },
+      updatedAt: true,
+    },
   })
 
-  res.status(201).json({
+  res.status(200).json({
     message: "success",
     data: {
       total: tickets.length,
@@ -48,13 +60,10 @@ export const getTicketById = asyncHandler(
     const { ticketId } = req.params
     const { user } = req
 
-    let whereClause: { id: string; authorUserId?: string }
-
-    if (user.role === "USER") {
-      whereClause = { id: ticketId, authorUserId: user.id }
-    } else {
-      whereClause = { id: ticketId }
-    }
+    const whereClause =
+      user.role === "USER"
+        ? { id: ticketId, authorUserId: user.id }
+        : { id: ticketId }
 
     const ticket = await prisma.ticket.findUniqueOrThrow({
       where: whereClause,
@@ -65,6 +74,13 @@ export const getTicketById = asyncHandler(
         },
         ticketAuthor: {
           select: userSelector,
+        },
+        messages: {
+          select: {
+            id: true,
+            title: true,
+            user: { select: userSelector },
+          },
         },
       },
     })
