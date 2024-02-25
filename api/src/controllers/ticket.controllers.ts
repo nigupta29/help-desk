@@ -37,12 +37,12 @@ export const getTickets = asyncHandler(async (req: Request, res: Response) => {
     select: {
       id: true,
       title: true,
-      priority: true,
+      priority: !(user.role === "USER"),
       status: true,
       product: true,
+      updatedAt: true,
       ticketAuthor: { select: userSelector },
       supportUser: { select: userSelector },
-      updatedAt: true,
     },
   })
 
@@ -67,8 +67,15 @@ export const getTicketById = asyncHandler(
 
     const ticket = await prisma.ticket.findUniqueOrThrow({
       where: whereClause,
-      include: {
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        priority: !(user.role === "USER"),
+        status: true,
         product: true,
+        createdAt: true,
+        updatedAt: true,
         supportUser: {
           select: userSelector,
         },
