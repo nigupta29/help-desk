@@ -1,3 +1,5 @@
+import { USER_ROLE } from "./enum";
+
 export const userSelector = {
   id: true,
   email: true,
@@ -9,7 +11,7 @@ export const ticketSelector = (user: { id: string; role: string }) => ({
   id: true,
   title: true,
   description: true,
-  priority: !(user.role === "USER"),
+  priority: !(user.role === USER_ROLE.Values.USER),
   status: true,
   product: true,
   createdAt: true,

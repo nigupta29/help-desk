@@ -2,6 +2,7 @@ import { Request, Response } from "express"
 import asyncHandler from "express-async-handler"
 import { z } from "zod"
 import prisma from "../config/db"
+import { USER_ROLE } from "../config/enum"
 
 export const addMessageToTicket = asyncHandler(
   async (req: Request, res: Response) => {
@@ -14,9 +15,11 @@ export const addMessageToTicket = asyncHandler(
     const { user } = req
 
     if (
-      (user.role === "USER" && ticket.authorUserId === user.id) ||
-      (user.role === "SUPPORT" && ticket.assignedUserId === user.id) ||
-      user.role === "ADMIN"
+      (user.role === USER_ROLE.Values.USER &&
+        ticket.authorUserId === user.id) ||
+      (user.role === USER_ROLE.Values.SUPPORT &&
+        ticket.assignedUserId === user.id) ||
+      user.role === USER_ROLE.Values.ADMIN
     ) {
       const title = z
         .string()

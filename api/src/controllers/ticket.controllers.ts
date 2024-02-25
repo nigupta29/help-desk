@@ -3,7 +3,7 @@ import asyncHandler from "express-async-handler"
 import { z } from "zod"
 import { ticketSelector, userSelector } from "../config/constants"
 import prisma from "../config/db"
-import { TicketPriority, TicketStatus, UserRole } from "../config/enum"
+import { TICKET_PRIORITY, TICKET_STATUS, USER_ROLE } from "../config/enum"
 
 // TODO: add more refined validation to NewTicketBody
 const NewTicketBody = z.object({
@@ -31,14 +31,15 @@ export const createTicket = asyncHandler(
 
 export const getTickets = asyncHandler(async (req: Request, res: Response) => {
   const { user } = req
-  const whereClause = user.role === "USER" ? { authorUserId: user.id } : {}
+  const whereClause =
+    user.role === USER_ROLE.Values.USER ? { authorUserId: user.id } : {}
 
   const tickets = await prisma.ticket.findMany({
     where: whereClause,
     select: {
       id: true,
       title: true,
-      priority: !(user.role === "USER"),
+      priority: !(user.role === USER_ROLE.Values.USER),
       status: true,
       product: true,
       updatedAt: true,
@@ -62,7 +63,7 @@ export const getTicketById = asyncHandler(
     const { user } = req
 
     const whereClause =
-      user.role === "USER"
+      user.role === USER_ROLE.Values.USER
         ? { id: ticketId, authorUserId: user.id }
         : { id: ticketId }
 
@@ -86,8 +87,8 @@ const userUpdateTicketSchema = z.object({
 })
 
 const supportUpdateTicketSchema = z.object({
-  priority: TicketPriority.optional(),
-  status: TicketStatus.optional(),
+  priority: TICKET_PRIORITY.optional(),
+  status: TICKET_STATUS.optional(),
 })
 
 const adminUpdateTicketSchema = userUpdateTicketSchema
@@ -106,15 +107,15 @@ export const updateTicket = asyncHandler(
     let updateBodyData
 
     switch (userRole) {
-      case "USER":
+      case USER_ROLE.Values.USER:
         updateBodyData = userUpdateTicketSchema.parse(req.body)
         break
 
-      case "SUPPORT":
+      case USER_ROLE.Values.SUPPORT:
         updateBodyData = supportUpdateTicketSchema.parse(req.body)
         break
 
-      case UserRole.Values.ADMIN:
+      case USER_ROLE.Values.ADMIN:
         updateBodyData = adminUpdateTicketSchema.parse(req.body)
         break
 
@@ -123,9 +124,9 @@ export const updateTicket = asyncHandler(
     }
 
     const whereClause =
-      userRole === "USER"
+      userRole === USER_ROLE.Values.USER
         ? { id: ticketId, authorUserId: userId }
-        : userRole === "SUPPORT"
+        : userRole === USER_ROLE.Values.SUPPORT
         ? {
             id: ticketId,
             OR: [{ assignedUserId: null }, { assignedUserId: userId }],
