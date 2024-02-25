@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import asyncHandler from "express-async-handler"
+import { z } from "zod"
 import prisma from "../config/db"
 
 export const addMessageToTicket = asyncHandler(
@@ -17,7 +18,10 @@ export const addMessageToTicket = asyncHandler(
       (user.role === "SUPPORT" && ticket.assignedUserId === user.id) ||
       user.role === "ADMIN"
     ) {
-      const { title } = req.body
+      const title = z
+        .string()
+        .min(10, { message: "Message should be of min. 10 characters long." })
+        .parse(req.body.title)
 
       const message = await prisma.message.create({
         data: {
