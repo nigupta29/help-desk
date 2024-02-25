@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import asyncHandler from "express-async-handler"
 import { z } from "zod"
+import { userSelector } from "../config/constants"
 import prisma from "../config/db"
 
 // TODO: add more refined validation to NewTicketBody
@@ -45,16 +46,30 @@ export const getTickets = asyncHandler(async (req: Request, res: Response) => {
 export const getTicketById = asyncHandler(
   async (req: Request, res: Response) => {
     const { ticketId } = req.params
-    const { userId } = req
+    const { user } = req
+
+    let whereClause: { id: string; authorUserId?: string }
+
+    if (user.role === "USER") {
+      whereClause = { id: ticketId, authorUserId: user.id }
+    } else {
+      whereClause = { id: ticketId }
+    }
 
     const ticket = await prisma.ticket.findUniqueOrThrow({
-      where: { id: ticketId,
-
-        
-        authorUserId: userId },
+      where: whereClause,
+      include: {
+        product: true,
+        supportUser: {
+          select: userSelector,
+        },
+        ticketAuthor: {
+          select: userSelector,
+        },
+      },
     })
 
-    res.status(201).json({
+    res.status(200).json({
       message: "success",
       data: {
         ticket,
