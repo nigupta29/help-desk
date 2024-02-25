@@ -28,9 +28,9 @@ export const createTicket = asyncHandler(
 )
 
 export const getTickets = asyncHandler(async (req: Request, res: Response) => {
-  const { userId } = req
+  const { user } = req
   const tickets = await prisma.ticket.findMany({
-    where: { authorUserId: userId },
+    where: user.role === "USER" ? { authorUserId: user.id } : {},
   })
 
   res.status(201).json({
@@ -48,7 +48,10 @@ export const getTicketById = asyncHandler(
     const { userId } = req
 
     const ticket = await prisma.ticket.findUniqueOrThrow({
-      where: { id: ticketId, authorUserId: userId },
+      where: { id: ticketId,
+
+        
+        authorUserId: userId },
     })
 
     res.status(201).json({
