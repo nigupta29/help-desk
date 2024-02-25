@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express"
 import asyncHandler from "express-async-handler"
 import jwt from "jsonwebtoken"
+import prisma from "../config/db"
 import { getEnvValue } from "../utils/helper-functions"
 
 type TDecodedObject = jwt.JwtPayload & {
@@ -17,7 +18,16 @@ export const protectRoute = asyncHandler(
           token,
           getEnvValue("JWT_SECRET_KEY")
         ) as TDecodedObject
-        // TODO: userID validation from the db in the optimized way
+
+        const user = await prisma.user.findUnique({ where: { id: userId } })
+
+        // TODO: Refactor this part and come with less expensive method
+        if (!user) {
+          res.status(401)
+          throw new Error("Not authorized, invalid token")
+        }
+
+        req.user = { id: userId, role: user.role }
         req.userId = userId
         next()
       } catch (error) {
