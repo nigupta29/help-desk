@@ -13,7 +13,7 @@ export default function Navbar() {
       <Container>
         <div className="flex items-center justify-between">
           <Link to={"/"}>
-            <Logo />
+            <Logo large />
           </Link>
 
           <nav className="flex items-center gap-2">

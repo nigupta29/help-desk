@@ -7,6 +7,7 @@ import Dashboard from "./pages/dashboard"
 import Home from "./pages/home"
 import Login from "./pages/login"
 import Register from "./pages/register"
+import Tickets from "./pages/tickets"
 
 export default function App() {
   return (
@@ -19,8 +20,9 @@ export default function App() {
         </Route>
       </Route>
       <Route element={<ProtectedRoutes />}>
-        <Route element={<DashboardLayout />}>
-          <Route path="dashboard" element={<Dashboard />} />
+        <Route path="dashboard" element={<DashboardLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="tickets" element={<Tickets />} />
           <Route path="*" element={<Dashboard />} />
         </Route>
       </Route>

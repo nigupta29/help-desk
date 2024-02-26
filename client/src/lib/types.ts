@@ -1,5 +1,12 @@
 import { z } from "zod"
 
+/* CUSTOM ERROR to Explicitly handle AxiosError */
+export type CustomError = Error & {
+  response?: {
+    data?: { message?: string }
+  }
+}
+
 // TODO: add more validation/transformation to schema
 /* LOGIN SCHEMA */
 export const loginSchema = z.object({
@@ -70,83 +77,3 @@ export const ProductsSchema = z.array(ProductSchema)
 // export type ProductSchemaType = z.infer<typeof ProductSchema>
 // export type ProductsSchemaType = z.infer<typeof ProductsSchema>
 
-/* NEW TICKET SCHEMA */
-export const NewTicketSchema = z.object({
-  title: z
-    .string({
-      required_error: "Title is required",
-      invalid_type_error: "Title must be a string"
-    })
-    .min(5, { message: "Title must be 5 or more characters" })
-    .max(50, { message: "Title must be max 50 characters" }),
-  description: z
-    .string({
-      required_error: "Description is required",
-      invalid_type_error: "Description must be a string"
-    })
-    .min(5, { message: "Description must be 100 or more characters" }),
-  authorUserId: z.string({
-    required_error: "authorUserId is required",
-    invalid_type_error: "authorUserId must be a string"
-  }),
-  productId: z.string({
-    required_error: "Must select the product",
-    invalid_type_error: "productId must be a string"
-  })
-})
-export type NewTicketSchemaType = z.infer<typeof NewTicketSchema>
-
-const STATUS = ["OPEN", "IN_REVIEW", "RESOLVED"] as const
-const PRIORITY = ["LOW", "MEDIUM", "HIGH"] as const
-
-/* TICKET SCHEMA */
-export const TicketSchema = NewTicketSchema.extend({
-  id: z.string({
-    required_error: "Ticket id is required",
-    invalid_type_error: "Ticket id must be a string"
-  }),
-
-  status: z.enum(STATUS, {
-    required_error: "ticket status is required",
-    invalid_type_error: `ticket status can only by ${STATUS.toString()}`
-  }),
-
-  priority: z.enum(PRIORITY, {
-    required_error: "ticket priority is required",
-    invalid_type_error: `ticket priority can only by ${PRIORITY.toString()}`
-  }),
-
-  assignedUserId: z
-    .string({
-      invalid_type_error: "assignedUserId must be a string"
-    })
-    .nullable(),
-
-  productId: z.string({
-    required_error: "Must select the product",
-    invalid_type_error: "productId must be a string"
-  }),
-
-  createdAt: z
-    .string({
-      required_error: "Ticket creation date that is required",
-      invalid_type_error: "Ticket creation date should be a Date type"
-    })
-    .datetime(),
-
-  updatedAt: z
-    .string({
-      required_error: "Ticket last updated date that is required",
-      invalid_type_error: "Ticket last updated date should be a Date type"
-    })
-    .datetime()
-})
-export type TicketSchemaType = z.infer<typeof TicketSchema>
-export const TicketsSchema = z.array(TicketSchema)
-
-/* CUSTOM ERROR to Explicitly handle AxiosError */
-export type CustomError = Error & {
-  response?: {
-    data?: { message?: string }
-  }
-}

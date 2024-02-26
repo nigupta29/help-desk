@@ -10,7 +10,7 @@ import SidebarItem from "./sidebar-item"
 export default function Sidebar() {
   return (
     <aside className="flex h-full w-full flex-col gap-4 p-4">
-      <div className="px-3">
+      <div className="px-4">
         <Logo />
       </div>
       <Separator />

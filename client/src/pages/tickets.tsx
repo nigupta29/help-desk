@@ -1,7 +1,10 @@
 export default function Tickets() {
   return (
     <div>
-      <h3>I am a Tickets</h3>
+      <h1 className="mb-2 text-4xl font-bold tracking-tight">Tickets</h1>
+      <p className="text-lg text-muted-foreground">
+        Manage your tickets below.
+      </p>
     </div>
   )
 }
