@@ -33,7 +33,7 @@ export const RegisterSchema = loginSchema.extend({
 export type RegisterSchemaType = z.infer<typeof RegisterSchema>
 
 /* USER SCHEMA */
-export const UserSchema = z.object({
+export const userSchema = z.object({
   id: z.string({
     required_error: "Id is required",
     invalid_type_error: "Id must be a string"
@@ -51,7 +51,7 @@ export const UserSchema = z.object({
   role: z.enum(["USER", "ADMIN", "SUPPORT"])
 })
 
-export type UserSchemaType = z.infer<typeof UserSchema>
+export type UserSchemaType = z.infer<typeof userSchema>
 
 /* PRODUCT SCHEMA */
 const ProductSchema = z.object({

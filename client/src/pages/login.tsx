@@ -8,11 +8,14 @@ import {
   FormMessage
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import useLogin from "@/hooks/user/use-login"
 import { LoginSchemaType, loginSchema } from "@/lib/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
 export default function Login() {
+  const { loginUserHandler, isLoading } = useLogin()
+
   const form = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -21,8 +24,10 @@ export default function Login() {
     }
   })
 
+  const isDisabled = isLoading || form.formState.isSubmitting
+
   function onSubmit(values: LoginSchemaType) {
-    console.log(values)
+    loginUserHandler(values)
   }
 
   return (
@@ -46,6 +51,7 @@ export default function Login() {
                   placeholder="e.g. john_doe@gmail.com"
                   type="text"
                   {...field}
+                  disabled={isDisabled}
                 />
               </FormControl>
               <FormMessage />
@@ -60,13 +66,18 @@ export default function Login() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="e.g. 123456" type="password" {...field} />
+                <Input
+                  placeholder="e.g. 123456"
+                  type="password"
+                  {...field}
+                  disabled={isDisabled}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full" disabled={isDisabled}>
           Login
         </Button>
       </form>
