@@ -1,4 +1,4 @@
-import LogoutButton from "@/components/features/user/logout-btn"
+import LogoutButton from "@/features/user/logout-btn"
 import useUserStore from "@/hooks/user/use-user-store"
 import { Link } from "react-router-dom"
 import Container from "../container"
