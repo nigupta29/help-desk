@@ -83,7 +83,7 @@ export const productsSchema = z.array(productSchema)
 // export type ProductsSchemaType = z.infer<typeof productsSchema>
 
 /* TICKET SCHEMA */
-const ticketSchema = z.object({
+export const ticketSchema = z.object({
   id: z
     .string({
       required_error: "Ticket id is required",
@@ -124,3 +124,29 @@ const ticketSchema = z.object({
 
 export type TicketSchemaType = z.infer<typeof ticketSchema>
 export const ticketsSchema = z.array(ticketSchema)
+
+/* NEW TICKET SCHEMA */
+export const newTicketSchema = z.object({
+  title: z
+    .string({
+      required_error: "Title is required",
+      invalid_type_error: "Title must be a string"
+    })
+    .min(5, { message: "Title must be 5 or more characters" })
+    .max(50, { message: "Title must be max 50 characters" }),
+  description: z
+    .string({
+      required_error: "Description is required",
+      invalid_type_error: "Description must be a string"
+    })
+    .min(5, { message: "Description must be 100 or more characters" }),
+  authorUserId: z.string({
+    required_error: "authorUserId is required",
+    invalid_type_error: "authorUserId must be a string"
+  }),
+  productId: z.string({
+    required_error: "Must select the product",
+    invalid_type_error: "productId must be a string"
+  })
+})
+export type NewTicketSchemaType = z.infer<typeof newTicketSchema>
