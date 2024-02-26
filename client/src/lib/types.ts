@@ -2,7 +2,7 @@ import { z } from "zod"
 
 // TODO: add more validation/transformation to schema
 /* LOGIN SCHEMA */
-export const LoginSchema = z.object({
+export const loginSchema = z.object({
   email: z
     .string({
       required_error: "Email is required",
@@ -11,10 +11,10 @@ export const LoginSchema = z.object({
     .email({ message: "Provide a valid email address." }),
   password: z.string().min(6, { message: "Must be 6 or more characters long" })
 })
-export type LoginSchemaType = z.infer<typeof LoginSchema>
+export type LoginSchemaType = z.infer<typeof loginSchema>
 
 /* REGISTER SCHEMA */
-export const RegisterSchema = LoginSchema.extend({
+export const RegisterSchema = loginSchema.extend({
   name: z
     .string({
       required_error: "Name is required",

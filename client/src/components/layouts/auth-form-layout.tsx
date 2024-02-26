@@ -1,18 +1,12 @@
-import useUserStore from "@/hooks/user/use-user-store"
-import { Navigate, Outlet } from "react-router-dom"
-import { Card } from "../ui/card"
+import { Outlet } from "react-router-dom"
+import Container from "./container"
 
 export default function AuthFormLayout() {
-  // TODO: Redirect if the user is logged need to come up with better strategy
-  const user = useUserStore((state) => state.user)
-
-  return user ? (
-    <Navigate to="/dashboard" replace />
-  ) : (
-    <div className="flex items-center justify-center p-5">
-      <Card className="w-full md:max-w-lg">
+  return (
+    <Container>
+      <div className="mx-auto my-8 flex items-center justify-center rounded-lg border p-8 shadow md:w-1/2">
         <Outlet />
-      </Card>
-    </div>
+      </div>
+    </Container>
   )
 }

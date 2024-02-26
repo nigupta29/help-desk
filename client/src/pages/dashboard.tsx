@@ -1,7 +1,7 @@
-import { useLocation } from "react-router-dom"
-
 export default function Dashboard() {
-  const { pathname } = useLocation()
-
-  return <div>{pathname}</div>
+  return (
+    <div>
+      <h3>I am a Dashboard</h3>
+    </div>
+  )
 }
