@@ -1,9 +1,6 @@
+import UserOptions from "@/components/features/user/user-option"
 import { Separator } from "@/components/ui/separator"
-import {
-  LayoutDashboardIcon,
-  MegaphoneIcon,
-  TicketSlashIcon
-} from "lucide-react"
+import { LayoutDashboardIcon, TicketSlashIcon } from "lucide-react"
 import Logo from "../../logo"
 import SidebarItem from "./sidebar-item"
 
@@ -14,7 +11,7 @@ export default function Sidebar() {
         <Logo />
       </div>
       <Separator />
-      <nav className="flex flex-col space-y-2">
+      <nav className="flex flex-grow flex-col space-y-2">
         <SidebarItem
           href="/dashboard"
           label="dashboard"
@@ -25,12 +22,9 @@ export default function Sidebar() {
           label="tickets"
           Icon={TicketSlashIcon}
         />
-        <SidebarItem
-          href="/dashboard/activity"
-          label="activity"
-          Icon={MegaphoneIcon}
-        />
       </nav>
+      <Separator />
+      <UserOptions />
     </aside>
   )
 }

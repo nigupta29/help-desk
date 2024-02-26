@@ -30,12 +30,12 @@ export default function LogoutButton() {
   return (
     <Button
       variant={"destructive"}
-      className="gap-2 md:justify-start"
+      className="justify-start gap-2"
       onClick={handleLogout}
       disabled={isPending}
     >
       <LogOutIcon size={20} />
-      <span className="hidden capitalize md:block">Logout</span>
+      <span className="capitalize">Logout</span>
     </Button>
   )
 }
