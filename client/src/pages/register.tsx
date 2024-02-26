@@ -1,3 +1,4 @@
+import Loader from "@/components/layouts/loader"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -36,9 +37,9 @@ export default function Register() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
         <div className="space-y-2 text-center">
-          <h1 className="text-2xl font-semibold">Welcome Back!</h1>
-          <p className="text-sm text-muted-foreground">
-            Enter your credentials below to access your account
+          <h1 className="text-3xl font-semibold">Create an Account!</h1>
+          <p className="text-base text-muted-foreground">
+            Enter your details below to create your account
           </p>
         </div>
 
@@ -117,7 +118,7 @@ export default function Register() {
           )}
         />
         <Button type="submit" className="w-full" disabled={isDisabled}>
-          Register
+          {isDisabled ? <Loader label="Registering" /> : <span>Register</span>}
         </Button>
       </form>
     </Form>
