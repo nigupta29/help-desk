@@ -22,11 +22,4 @@ export const ticketSelector = (user: { id: string; role: string }) => ({
   ticketAuthor: {
     select: userSelector,
   },
-  messages: {
-    select: {
-      id: true,
-      title: true,
-      user: { select: userSelector },
-    },
-  },
 })
