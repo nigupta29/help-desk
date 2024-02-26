@@ -8,7 +8,7 @@ type Props = {
 
 const Logo: FC<Props> = ({ large }) => {
   return (
-    <div className="group flex items-start justify-center space-x-2 px-4 md:justify-start">
+    <div className="group flex items-center justify-center space-x-2 md:justify-start">
       <FileQuestionIcon size={large ? 45 : 30} />
       <p className={cn("text-3xl font-semibold", large && "text-5xl")}>
         <span className="underline decoration-primary">h</span>
