@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { PRIORITY, STATUS } from "./constant"
 
 /* CUSTOM ERROR to Explicitly handle AxiosError */
 export type CustomError = Error & {
@@ -43,10 +44,12 @@ export type RegisterSchemaType = z.infer<typeof registerSchema>
 
 /* USER SCHEMA */
 export const userSchema = z.object({
-  id: z.string({
-    required_error: "Id is required",
-    invalid_type_error: "Id must be a string"
-  }),
+  id: z
+    .string({
+      required_error: "Id is required",
+      invalid_type_error: "Id must be a string"
+    })
+    .uuid({ message: "Invalid User Id" }),
   email: z
     .string({
       required_error: "Email is required",
@@ -63,17 +66,61 @@ export const userSchema = z.object({
 export type UserSchemaType = z.infer<typeof userSchema>
 
 /* PRODUCT SCHEMA */
-const ProductSchema = z.object({
-  id: z.string({
-    required_error: "Id is required",
-    invalid_type_error: "Id must be a string"
-  }),
+const productSchema = z.object({
+  id: z
+    .string({
+      required_error: "Product id is required",
+      invalid_type_error: "Product id must be a string"
+    })
+    .uuid({ message: "Invalid Product Id" }),
   name: z.string({
     required_error: "Product name is required",
     invalid_type_error: "Product name must be a string"
   })
 })
-export const ProductsSchema = z.array(ProductSchema)
+export const productsSchema = z.array(productSchema)
 // export type ProductSchemaType = z.infer<typeof ProductSchema>
-// export type ProductsSchemaType = z.infer<typeof ProductsSchema>
+// export type ProductsSchemaType = z.infer<typeof productsSchema>
 
+/* TICKET SCHEMA */
+const ticketSchema = z.object({
+  id: z
+    .string({
+      required_error: "Ticket id is required",
+      invalid_type_error: "Ticket id must be a string"
+    })
+    .uuid({ message: "Invalid Ticket Id" }),
+
+  title: z.string({
+    required_error: "Ticket title is required",
+    invalid_type_error: "Ticket title must be a string"
+  }),
+
+  status: z.enum(STATUS, {
+    required_error: "ticket status is required",
+    invalid_type_error: `ticket status can only by ${STATUS.toString()}`
+  }),
+
+  priority: z
+    .enum(PRIORITY, {
+      required_error: "ticket priority is required",
+      invalid_type_error: `ticket priority can only by ${PRIORITY.toString()}`
+    })
+    .optional(),
+
+  product: productSchema,
+
+  updatedAt: z
+    .string({
+      required_error: "Ticket last updated date that is required",
+      invalid_type_error: "Ticket last updated date should be a Date type"
+    })
+    .datetime(),
+
+  ticketAuthor: userSchema,
+
+  supportUser: userSchema.nullable()
+})
+
+export type TicketSchemaType = z.infer<typeof ticketSchema>
+export const ticketsSchema = z.array(ticketSchema)
