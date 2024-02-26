@@ -5,7 +5,7 @@ import Sidebar from "./sidebar"
 export default function DashboardLayout() {
   return (
     <div className="flex h-screen">
-      <div className="w-64">
+      <div className="min-w-64">
         <Sidebar />
       </div>
       <Separator orientation="vertical" />

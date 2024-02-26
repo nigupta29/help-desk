@@ -1,8 +1,23 @@
 import Loader from "@/components/layouts/loader"
+import { Separator } from "@/components/ui/separator"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from "@/components/ui/table"
 import useTicket from "@/hooks/ticket/use-ticket"
+import useUserStore from "@/hooks/user/use-user-store"
+import { getRelativeDate } from "@/lib/utils"
 import { Navigate, useParams } from "react-router-dom"
 
 export default function Ticket() {
+  const user = useUserStore((state) => state.user)
+
+  const isUserRole = user?.role === "USER"
+
   const { ticketId = "" } = useParams()
   const { ticket, isLoading } = useTicket(ticketId)
 
@@ -15,8 +30,48 @@ export default function Ticket() {
   }
 
   return (
-    <div>
-      <h3>{ticket.title}</h3>
+    <div className="space-y-8">
+      <h1 className="text-3xl font-bold">Ticket Details</h1>
+
+      <div>
+        <h3 className="mb-2 text-2xl font-semibold">{`${ticket.title}`}</h3>
+        <p className="text-base text-muted-foreground">{ticket.description}</p>
+      </div>
+
+      <Table>
+        <TableHeader className="bg-secondary">
+          <TableRow>
+            <TableHead>Product</TableHead>
+            <TableHead>Status</TableHead>
+            {!isUserRole && (
+              <>
+                <TableHead>Priority</TableHead>
+                <TableHead>Author</TableHead>
+              </>
+            )}
+            <TableHead>Support</TableHead>
+            <TableHead>Created at</TableHead>
+            <TableHead>Last updated on</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>{ticket.product.name}</TableCell>
+            <TableCell>{ticket.status}</TableCell>
+            {!isUserRole && (
+              <>
+                <TableCell>{ticket.priority}</TableCell>
+                <TableCell>{ticket.ticketAuthor.name}</TableCell>
+              </>
+            )}
+            <TableCell>{ticket.supportUser?.name ?? "-"}</TableCell>
+            <TableCell>{getRelativeDate(ticket.createdAt)}</TableCell>
+            <TableCell>{getRelativeDate(ticket.updatedAt)}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+
+      <Separator />
     </div>
   )
 }
