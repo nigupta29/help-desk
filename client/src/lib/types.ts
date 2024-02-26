@@ -14,23 +14,25 @@ export const loginSchema = z.object({
 export type LoginSchemaType = z.infer<typeof loginSchema>
 
 /* REGISTER SCHEMA */
-export const RegisterSchema = loginSchema.extend({
-  name: z
-    .string({
-      required_error: "Name is required",
-      invalid_type_error: "Name must be a string"
-    })
-    .min(2, { message: "Must be 2 or more characters long" })
-    .trim(),
-  confirmPassword: z
-    .string()
-    .min(6, { message: "Must be 6 or more characters long" })
-}).refine((data) => data.confirmPassword === data.password, {
-  message: "Passwords must match",
-  path: ["confirmPassword"]
-})
+export const registerSchema = loginSchema
+  .extend({
+    name: z
+      .string({
+        required_error: "Name is required",
+        invalid_type_error: "Name must be a string"
+      })
+      .min(2, { message: "Must be 2 or more characters long" })
+      .trim(),
+    confirmPassword: z
+      .string()
+      .min(6, { message: "Must be 6 or more characters long" })
+  })
+  .refine((data) => data.confirmPassword === data.password, {
+    message: "Passwords must match",
+    path: ["confirmPassword"]
+  })
 
-export type RegisterSchemaType = z.infer<typeof RegisterSchema>
+export type RegisterSchemaType = z.infer<typeof registerSchema>
 
 /* USER SCHEMA */
 export const userSchema = z.object({

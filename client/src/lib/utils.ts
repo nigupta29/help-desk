@@ -16,7 +16,8 @@ export const axiosInstance = axios.create({
 })
 
 export const showErrorMessage = (error: CustomError) => {
-  const message = error.response
+  console.log(error)
+  const message = error.response?.data
     ? (error?.response?.data?.message as string)
     : error.message
 

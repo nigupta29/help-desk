@@ -34,7 +34,7 @@ export default function Login() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
         <div className="space-y-2 text-center">
-          <h1 className="text-2xl font-semibold">Welcome Back!</h1>
+          <h1 className="text-2xl font-semibold">Create an Account!</h1>
           <p className="text-sm text-muted-foreground">
             Enter your credentials below to access your account
           </p>
@@ -49,7 +49,7 @@ export default function Login() {
               <FormControl>
                 <Input
                   placeholder="e.g. john_doe@gmail.com"
-                  type="text"
+                  type="email"
                   {...field}
                   disabled={isDisabled}
                 />
