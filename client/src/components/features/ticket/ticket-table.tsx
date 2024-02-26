@@ -34,7 +34,7 @@ export default function TicketTable() {
           <TableHead>Product</TableHead>
           <TableHead>Status</TableHead>
           <TableHead>Support</TableHead>
-          <TableHead>Updates</TableHead>
+          <TableHead>Update</TableHead>
           <TableHead>Action</TableHead>
         </TableRow>
       </TableHeader>
