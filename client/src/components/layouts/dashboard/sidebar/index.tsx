@@ -1,3 +1,4 @@
+import CreateTicket from "@/components/features/ticket/create-ticket"
 import UserOptions from "@/components/features/user/user-option"
 import { Separator } from "@/components/ui/separator"
 import { LayoutDashboardIcon, TicketSlashIcon } from "lucide-react"
@@ -24,6 +25,7 @@ export default function Sidebar() {
         />
       </nav>
       <Separator />
+      <CreateTicket />
       <UserOptions />
     </aside>
   )
