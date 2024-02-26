@@ -3,9 +3,11 @@ import { axiosInstance, showErrorMessage } from "@/lib/utils"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
+import { z } from "zod"
 
 const createTicketAPI = async (newTicketData: NewTicketSchemaType) => {
-  await axiosInstance.post("/tickets", newTicketData)
+  const res = await axiosInstance.post("/tickets", newTicketData)
+  return z.string().uuid().parse(res.data.data.ticket.id)
 }
 
 export default function useCreateTicket() {
@@ -15,10 +17,10 @@ export default function useCreateTicket() {
   const { mutateAsync: createTicketHandler, isPending: isLoading } =
     useMutation({
       mutationFn: createTicketAPI,
-      onSuccess: () => {
+      onSuccess: (data) => {
         toast.success("Ticket Created")
         queryClient.invalidateQueries({ queryKey: ["tickets"] })
-        navigate("/dashboard/tickets")
+        navigate("/dashboard/tickets/" + data)
       },
       onError: showErrorMessage
     })
