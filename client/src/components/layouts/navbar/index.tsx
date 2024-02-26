@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
-import Container from "../layouts/container"
-import Logo from "../layouts/logo"
+import Container from "../container"
+import Logo from "../logo"
 import NavbarItem from "./navbar-item"
 
 export default function Navbar() {
