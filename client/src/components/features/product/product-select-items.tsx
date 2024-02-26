@@ -6,13 +6,15 @@ export default function ProductSelectItems() {
   const { products, isLoading } = useProducts()
 
   if (isLoading) {
-    return <Loader />
+    return <Loader label="Fetching products" />
   }
 
   return (
     <>
       {products.map((item) => (
-        <SelectItem key={item.name} value={item.id}>{item.name}</SelectItem>
+        <SelectItem key={item.name} value={item.id}>
+          {item.name}
+        </SelectItem>
       ))}
     </>
   )

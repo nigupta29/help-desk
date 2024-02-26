@@ -2,8 +2,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React from "react"
 import ReactDOM from "react-dom/client"
 import { BrowserRouter } from "react-router-dom"
-import { Toaster } from "sonner"
 import App from "./App.tsx"
+import { Toaster } from "./components/ui/sonner.tsx"
 import "./index.css"
 
 const queryClient = new QueryClient()
@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <App />
-        <Toaster closeButton richColors />
+        <Toaster closeButton />
       </BrowserRouter>
     </QueryClientProvider>
   </React.StrictMode>

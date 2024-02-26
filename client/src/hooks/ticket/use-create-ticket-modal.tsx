@@ -5,7 +5,7 @@ type TicketModalState = {
   toggle: () => void
 }
 
-const useCreateTicketModal = create<TicketModalState>()((set) => ({
+const useCreateTicketModal = create<TicketModalState>((set) => ({
   open: false,
   toggle: () => set((state) => ({ open: !state.open }))
 }))

@@ -1,5 +1,4 @@
 import { TableCell, TableRow } from "@/components/ui/table"
-import useProductDetails from "@/hooks/product/use-product-details"
 import { TicketSchemaType } from "@/lib/types"
 import { getRelativeDate } from "@/lib/utils"
 import { ArrowUpRightIcon } from "lucide-react"
@@ -10,19 +9,17 @@ type Props = {
 }
 
 export default function TicketTableRow({ ticket }: Props) {
-  const { productName } = useProductDetails(ticket.productId)
-
   return (
     <TableRow key={ticket.id}>
       <TableCell>{ticket.title}</TableCell>
-      <TableCell>{productName}</TableCell>
+      <TableCell>{ticket.product.name}</TableCell>
       <TableCell>{ticket.status}</TableCell>
-      <TableCell>{ticket.priority}</TableCell>
+      <TableCell>{ticket.supportUser?.name ?? "-"}</TableCell>
       <TableCell>{getRelativeDate(ticket.updatedAt)}</TableCell>
       <TableCell>
         <Link
           to={`${ticket.id}`}
-          className="flex items-end underline hover:text-primary hover:decoration-primary"
+          className="flex items-end text-muted-foreground hover:text-secondary-foreground hover:underline"
         >
           <span>View</span>
           <ArrowUpRightIcon size={18} />

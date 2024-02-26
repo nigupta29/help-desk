@@ -1,16 +1,20 @@
+import { cn } from "@/lib/utils"
 import { Loader2Icon } from "lucide-react"
 
-type Props = { label?: string }
+type Props = { label?: string; className?: string }
 
-export default function Loader({ label = "Loading" }: Props) {
+export default function Loader({ label = "Loading", className = "" }: Props) {
   return (
     <div
       aria-label="Loading..."
       role="status"
-      className="flex h-[50%] w-full animate-pulse items-center justify-center space-x-2"
+      className={cn(
+        "flex h-full w-full animate-pulse items-center justify-center space-x-2",
+        className
+      )}
     >
-      <Loader2Icon size={25} className="animate-spin" />
-      <p className="font-medium">{`${label}...`}</p>
+      <Loader2Icon size={30} className="animate-spin" />
+      <p className="font-medium text-inherit">{`${label}...`}</p>
     </div>
   )
 }

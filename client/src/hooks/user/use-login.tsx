@@ -1,4 +1,4 @@
-import { LoginSchemaType, UserSchema } from "@/lib/types"
+import { LoginSchemaType, userSchema } from "@/lib/types"
 import { axiosInstance, showErrorMessage } from "@/lib/utils"
 import { useMutation } from "@tanstack/react-query"
 import { useNavigate } from "react-router-dom"
@@ -7,7 +7,7 @@ import useUserStore from "./use-user-store"
 
 const loginUserAPI = async ({ email, password }: LoginSchemaType) => {
   const res = await axiosInstance.post("/auth/login", { email, password })
-  return UserSchema.parseAsync(res.data.data.user)
+  return userSchema.parseAsync(res.data.data.user)
 }
 
 export default function useLogin() {

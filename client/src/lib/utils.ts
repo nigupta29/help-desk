@@ -16,9 +16,9 @@ export const axiosInstance = axios.create({
   }
 })
 
-// TODO: handle zod errors
 export const showErrorMessage = (error: CustomError) => {
-  const message = error.response
+  console.log(error)
+  const message = error.response?.data
     ? (error?.response?.data?.message as string)
     : error.message
 

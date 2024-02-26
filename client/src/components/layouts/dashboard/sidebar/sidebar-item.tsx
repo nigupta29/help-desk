@@ -16,11 +16,11 @@ export default function SidebarItem({ href, label, Icon }: Props) {
     <Button
       asChild
       variant={activeRoute ? "secondary" : "ghost"}
-      className="gap-2 md:justify-start"
+      className="justify-start gap-2 text-base"
     >
       <Link to={href}>
         <Icon />
-        <span className="hidden text-base capitalize md:block">{label}</span>
+        <span className="capitalize">{label}</span>
       </Link>
     </Button>
   )

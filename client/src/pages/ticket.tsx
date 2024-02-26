@@ -1,37 +1,77 @@
 import Loader from "@/components/layouts/loader"
-import { Badge } from "@/components/ui/badge"
-import useProductDetails from "@/hooks/product/use-product-details"
+import { Separator } from "@/components/ui/separator"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from "@/components/ui/table"
 import useTicket from "@/hooks/ticket/use-ticket"
+import useUserStore from "@/hooks/user/use-user-store"
 import { getRelativeDate } from "@/lib/utils"
-import { useParams } from "react-router-dom"
+import { Navigate, useParams } from "react-router-dom"
 
 export default function Ticket() {
-  const { ticketId } = useParams()
-  const { ticket, isLoading } = useTicket(ticketId as string)
-  const { productName } = useProductDetails(ticket?.productId as string)
+  const user = useUserStore((state) => state.user)
+
+  const isUserRole = user?.role === "USER"
+
+  const { ticketId = "" } = useParams()
+  const { ticket, isLoading } = useTicket(ticketId)
 
   if (isLoading) {
     return <Loader label={"Hang on! We are fetching your ticket details."} />
   }
 
-  if (!ticket) return null
+  if (!ticket) {
+    return <Navigate to="/dashboard/tickets" replace />
+  }
 
   return (
-    <div className="">
-      <h1 className="mb-4 text-3xl font-semibold">{ticket.title}</h1>
-      <p className="mb-2 text-gray-600">{ticket.description}</p>
+    <div className="space-y-8">
+      <h1 className="text-3xl font-bold">Ticket Details</h1>
 
-      <div className="mb-2 text-blue-500">{productName}</div>
-
-      <Badge variant={"secondary"}>{ticket.status}</Badge>
-      <Badge variant={"outline"}>{ticket.priority}</Badge>
-
-      <div className="mb-2 text-gray-500">
-        Created On: {getRelativeDate(ticket.createdAt)}
+      <div>
+        <h3 className="mb-2 text-2xl font-semibold">{`${ticket.title}`}</h3>
+        <p className="text-base text-muted-foreground">{ticket.description}</p>
       </div>
-      <div className="text-gray-500">
-        Last Updated On: {getRelativeDate(ticket.updatedAt)}
-      </div>
+
+      <Table>
+        <TableHeader className="bg-secondary">
+          <TableRow>
+            <TableHead>Product</TableHead>
+            <TableHead>Status</TableHead>
+            {!isUserRole && (
+              <>
+                <TableHead>Priority</TableHead>
+                <TableHead>Author</TableHead>
+              </>
+            )}
+            <TableHead>Support</TableHead>
+            <TableHead>Created at</TableHead>
+            <TableHead>Last updated on</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>{ticket.product.name}</TableCell>
+            <TableCell>{ticket.status}</TableCell>
+            {!isUserRole && (
+              <>
+                <TableCell>{ticket.priority}</TableCell>
+                <TableCell>{ticket.ticketAuthor.name}</TableCell>
+              </>
+            )}
+            <TableCell>{ticket.supportUser?.name ?? "-"}</TableCell>
+            <TableCell>{getRelativeDate(ticket.createdAt)}</TableCell>
+            <TableCell>{getRelativeDate(ticket.updatedAt)}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+
+      <Separator />
     </div>
   )
 }

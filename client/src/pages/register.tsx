@@ -1,102 +1,126 @@
 import Loader from "@/components/layouts/loader"
 import { Button } from "@/components/ui/button"
 import {
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from "@/components/ui/card"
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import useRegister from "@/hooks/user/use-register"
-import { RegisterSchema, RegisterSchemaType } from "@/lib/types"
+import { RegisterSchemaType, registerSchema } from "@/lib/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
 export default function Register() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting }
-    // reset
-  } = useForm<RegisterSchemaType>({
-    resolver: zodResolver(RegisterSchema)
+  const { registerUserHandler, isLoading } = useRegister()
+
+  const form = useForm<RegisterSchemaType>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: ""
+    }
   })
 
-  const { isLoading, registerUserHandler } = useRegister()
-  const isDisabled = isLoading || isSubmitting
+  const isDisabled = isLoading || form.formState.isSubmitting
 
-  const onSubmit = (formData: RegisterSchemaType) => {
-    registerUserHandler(formData)
-    // reset()
+  function onSubmit(values: RegisterSchemaType) {
+    registerUserHandler(values)
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl">Welcome</CardTitle>
-        <CardDescription>Enter your details below to continue.</CardDescription>
-      </CardHeader>
-      <CardContent className="grid gap-4">
-        <div className="grid gap-2">
-          <Label htmlFor="name">Full Name</Label>
-          <Input
-            {...register("name")}
-            type="name"
-            placeholder="John Doe"
-            disabled={isDisabled}
-          />
-          {errors.name && (
-            <p className="text-xs text-destructive">{`${errors.name.message}`}</p>
-          )}
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
+        <div className="space-y-2 text-center">
+          <h1 className="text-3xl font-semibold">Create an Account!</h1>
+          <p className="text-base text-muted-foreground">
+            Enter your details below to create your account
+          </p>
         </div>
-        <div className="grid gap-2">
-          <Label htmlFor="email">Email</Label>
-          <Input
-            {...register("email")}
-            type="email"
-            placeholder="e.g. john_doe@gmail.com"
-            disabled={isDisabled}
-          />
-          {errors.email && (
-            <p className="text-xs text-destructive">{`${errors.email.message}`}</p>
+
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Name</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="e.g. John Doe"
+                  type="text"
+                  {...field}
+                  disabled={isDisabled}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
-        </div>
-        <div className="grid gap-2">
-          <Label htmlFor="password">Password</Label>
-          <Input
-            {...register("password")}
-            type="password"
-            placeholder="e.g. 123456"
-            disabled={isDisabled}
-          />
-          {errors.password && (
-            <p className="text-xs text-destructive">{`${errors.password.message}`}</p>
+        />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="e.g. john_doe@gmail.com"
+                  type="email"
+                  {...field}
+                  disabled={isDisabled}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
-        </div>
-        <div className="grid gap-2">
-          <Label htmlFor="password">Confirm Password</Label>
-          <Input
-            {...register("confirmPassword")}
-            type="password"
-            placeholder="e.g. 123456"
-            disabled={isDisabled}
-          />
-          {errors.confirmPassword && (
-            <p className="text-xs text-destructive">{`${errors.confirmPassword.message}`}</p>
+        />
+
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="e.g. 123456"
+                  type="password"
+                  {...field}
+                  disabled={isDisabled}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button className="w-full" disabled={isDisabled} type="submit">
-          {isSubmitting ? (
-            <Loader label="Creating account" />
-          ) : (
-            <span>Create Account</span>
+        />
+
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Confirm Password</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="e.g. 123456"
+                  type="password"
+                  {...field}
+                  disabled={isDisabled}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
+        />
+        <Button type="submit" className="w-full" disabled={isDisabled}>
+          {isDisabled ? <Loader label="Registering" /> : <span>Register</span>}
         </Button>
-      </CardFooter>
-    </form>
+      </form>
+    </Form>
   )
 }

@@ -15,11 +15,11 @@ export default function UserAvatar() {
 
   return (
     <>
-      <Avatar className={"h-10 w-10"}>
+      <Avatar>
         <AvatarImage src={""} alt={`${initials}'s Avatar`} />
         <AvatarFallback>{initials}</AvatarFallback>
       </Avatar>
-      <span className="hidden capitalize md:block">{user?.name}</span>
+      <span className="capitalize">{user?.name}</span>
     </>
   )
 }

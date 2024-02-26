@@ -1,10 +1,14 @@
 import TicketTable from "@/components/features/ticket/ticket-table"
 
-export default function Ticket() {
+export default function Tickets() {
   return (
-    <>
-      <h3 className="text-3xl font-semibold mb-4">Tickets</h3>
+    <div>
+      <h1 className="mb-2 text-4xl font-bold tracking-tight">Tickets</h1>
+      <p className="mb-6 text-lg text-muted-foreground">
+        Manage your tickets below.
+      </p>
+
       <TicketTable />
-    </>
+    </div>
   )
 }

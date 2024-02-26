@@ -5,13 +5,13 @@ import Sidebar from "./sidebar"
 export default function DashboardLayout() {
   return (
     <div className="flex h-screen">
-      <div className="max-w-xs md:w-3/12">
+      <div className="min-w-64">
         <Sidebar />
       </div>
       <Separator orientation="vertical" />
-      <div className="flex-grow p-5">
+      <main className="flex-grow p-4">
         <Outlet />
-      </div>
+      </main>
     </div>
   )
 }

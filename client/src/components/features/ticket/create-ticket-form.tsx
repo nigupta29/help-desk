@@ -1,6 +1,5 @@
 import Loader from "@/components/layouts/loader"
 import { Button } from "@/components/ui/button"
-import { DialogFooter } from "@/components/ui/dialog"
 import {
   Form,
   FormControl,
@@ -19,12 +18,12 @@ import {
 import { Separator } from "@/components/ui/separator"
 import { Textarea } from "@/components/ui/textarea"
 import useCreateTicket from "@/hooks/ticket/use-create-ticket"
+import useCreateTicketModal from "@/hooks/ticket/use-create-ticket-modal"
 import useUserStore from "@/hooks/user/use-user-store"
-import { NewTicketSchema, NewTicketSchemaType } from "@/lib/types"
+import { NewTicketSchemaType, newTicketSchema } from "@/lib/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import ProductSelectItems from "../product/product-select-items"
-import useCreateTicketModal from "@/hooks/ticket/use-create-ticket-modal"
 
 export default function CreateTicketForm() {
   const user = useUserStore((state) => state.user)
@@ -33,7 +32,7 @@ export default function CreateTicketForm() {
   const { createTicketHandler, isLoading } = useCreateTicket()
 
   const form = useForm<NewTicketSchemaType>({
-    resolver: zodResolver(NewTicketSchema),
+    resolver: zodResolver(newTicketSchema),
     defaultValues: {
       authorUserId: user?.id,
       title: "Battery Issue",
@@ -110,7 +109,7 @@ export default function CreateTicketForm() {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Issue</FormLabel>
+              <FormLabel>Description</FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="Tell us about your issue in detail."
@@ -126,11 +125,9 @@ export default function CreateTicketForm() {
 
         <Separator className="my-4" />
 
-        <DialogFooter>
-          <Button type="submit" disabled={isDisabled}>
-            {isDisabled ? <Loader label="Creating ticket" /> : "Submit"}
-          </Button>
-        </DialogFooter>
+        <Button type="submit" disabled={isDisabled} className="w-full">
+          {isDisabled ? <Loader label="Creating ticket" /> : "Submit"}
+        </Button>
       </form>
     </Form>
   )

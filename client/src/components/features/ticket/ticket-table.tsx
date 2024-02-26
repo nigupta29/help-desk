@@ -3,8 +3,6 @@ import {
   Table,
   TableBody,
   TableCaption,
-  TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow
@@ -19,7 +17,7 @@ export default function TicketTable() {
     return <Loader label={"Hang on! We are fetching your Tickets."} />
   }
 
-  if (tickets.length === 0) {
+  if (!tickets || tickets.length === 0) {
     return (
       <Table>
         <TableCaption>No tickets are present.</TableCaption>
@@ -30,13 +28,13 @@ export default function TicketTable() {
   return (
     <Table>
       <TableCaption>A list of your recent tickets.</TableCaption>
-      <TableHeader>
+      <TableHeader className="bg-secondary">
         <TableRow>
           <TableHead>Title</TableHead>
           <TableHead>Product</TableHead>
           <TableHead>Status</TableHead>
-          <TableHead>Priority</TableHead>
-          <TableHead>Updates</TableHead>
+          <TableHead>Support</TableHead>
+          <TableHead>Update</TableHead>
           <TableHead>Action</TableHead>
         </TableRow>
       </TableHeader>
@@ -45,12 +43,6 @@ export default function TicketTable() {
           <TicketTableRow key={item.id} ticket={item} />
         ))}
       </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableCell colSpan={5}>Total Tickets:</TableCell>
-          <TableCell className="text-right">{tickets.length}</TableCell>
-        </TableRow>
-      </TableFooter>
     </Table>
   )
 }

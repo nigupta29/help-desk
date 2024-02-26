@@ -6,14 +6,14 @@ import {
   CollapsibleTrigger
 } from "@/components/ui/collapsible"
 import { UserIcon } from "lucide-react"
-import LogoutButton from "./logout-button"
+import LogoutButton from "./logout-btn"
 import UserAvatar from "./user-avatar"
 
-export default function UserDropdown() {
+export default function UserOptions() {
   return (
     <Collapsible>
       <CollapsibleContent>
-        <div className="md:-2 mb-2 flex flex-col gap-2 rounded-md border p-1">
+        <div className="mb-2 flex flex-col gap-2">
           <SidebarItem
             href="/dashboard/profile"
             label="Profile"
@@ -24,7 +24,7 @@ export default function UserDropdown() {
       </CollapsibleContent>
       <Button
         variant="ghost"
-        className="h-12 w-full gap-2 md:justify-start"
+        className="h-12 w-full justify-start gap-2"
         asChild
       >
         <CollapsibleTrigger>

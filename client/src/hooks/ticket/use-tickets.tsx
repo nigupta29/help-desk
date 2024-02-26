@@ -1,20 +1,20 @@
-import { TicketsSchema } from "@/lib/types"
+import { ticketsSchema } from "@/lib/types"
 import { axiosInstance, showErrorMessage } from "@/lib/utils"
 import { useQuery } from "@tanstack/react-query"
 
 const getTicketsAPI = async () => {
   const res = await axiosInstance.get("/tickets")
-  return TicketsSchema.parseAsync(res.data.data.tickets)
+  return ticketsSchema.parseAsync(res.data.data.tickets)
 }
 
 export default function useTickets() {
   const {
-    data: tickets = [],
+    data: tickets,
     isLoading,
     error
   } = useQuery({
     queryKey: ["tickets"],
-    queryFn: getTicketsAPI,
+    queryFn: getTicketsAPI
   })
 
   if (error) {

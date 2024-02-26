@@ -1,10 +1,10 @@
-import { ProductsSchema } from "@/lib/types"
+import { productsSchema } from "@/lib/types"
 import { axiosInstance, showErrorMessage } from "@/lib/utils"
 import { useQuery } from "@tanstack/react-query"
 
 const getProductsAPI = async () => {
   const res = await axiosInstance.get("/products")
-  return ProductsSchema.parseAsync(res.data.data.products)
+  return productsSchema.parseAsync(res.data.data.products)
 }
 
 export default function useProducts() {
