@@ -1,4 +1,5 @@
 import Loader from "@/components/layouts/loader"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import useMessages from "@/hooks/message/use-messages"
 import { useParams } from "react-router-dom"
 import MessageListItem from "./message-list-item"
@@ -17,8 +18,10 @@ export default function MessageList() {
     )
 
   return (
-    <ul className="space-y-2">
-      {messages?.map((item) => <MessageListItem key={item.id} {...item} />)}
-    </ul>
+    <ScrollArea className="h-96 w-full rounded-lg border p-3 ">
+      <div className="space-y-2">
+        {messages?.map((item) => <MessageListItem key={item.id} {...item} />)}
+      </div>
+    </ScrollArea>
   )
 }
