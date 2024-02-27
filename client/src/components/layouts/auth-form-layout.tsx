@@ -1,12 +1,15 @@
 import { Outlet } from "react-router-dom"
+import { Card, CardContent } from "../ui/card"
 import Container from "./container"
 
 export default function AuthFormLayout() {
   return (
     <Container>
-      <div className="mx-auto my-8 flex items-center justify-center rounded-lg border p-8 shadow md:w-1/2">
-        <Outlet />
-      </div>
+      <Card className="mx-auto my-8 p-8 md:w-1/2">
+        <CardContent>
+          <Outlet />
+        </CardContent>
+      </Card>
     </Container>
   )
 }
