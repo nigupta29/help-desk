@@ -58,16 +58,13 @@ export const addMessageToTicket = asyncHandler(
 
 export const getMessages = asyncHandler(async (req: Request, res: Response) => {
   const { ticketId } = req.params
-  const { user } = req
-
-  const whereClause =
-    user.role === USER_ROLE.Values.USER
-      ? { ticketId, userId: user.id }
-      : { ticketId }
 
   const messages = await prisma.message.findMany({
-    where: whereClause,
+    where: { ticketId },
     select: MESSAGE_SELECT,
+    orderBy: {
+      createdAt: "asc",
+    },
   })
 
   res.status(200).json({
