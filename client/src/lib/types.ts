@@ -80,3 +80,15 @@ export const newTicketSchema = z.object({
   productId: ID("Product")
 })
 export type NewTicketSchemaType = z.infer<typeof newTicketSchema>
+
+/* MESSAGES SCHEMA */
+
+export const messageSchema = z.object({
+  id: ID("Ticket Message"),
+  title: TITLE("Ticket Message"),
+  createdAt: DATE("Message Created at"),
+  user: userSchema
+})
+
+export const messagesSchema = z.array(messageSchema)
+export type MessageSchemaType = z.infer<typeof messageSchema>

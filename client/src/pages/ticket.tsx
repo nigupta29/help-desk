@@ -1,3 +1,4 @@
+import Message from "@/components/features/message"
 import Loader from "@/components/layouts/loader"
 import { Separator } from "@/components/ui/separator"
 import {
@@ -72,6 +73,8 @@ export default function Ticket() {
       </Table>
 
       <Separator />
+
+      <Message />
     </div>
   )
 }
