@@ -14,7 +14,11 @@ export default function TicketTable() {
   const { tickets, isLoading } = useTickets()
 
   if (isLoading) {
-    return <Loader label={"Hang on! We are fetching your Tickets."} />
+    return (
+      <div className="h-56">
+        <Loader label={"Hang on! We are fetching your Tickets."} />
+      </div>
+    )
   }
 
   if (!tickets || tickets.length === 0) {

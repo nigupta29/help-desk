@@ -23,7 +23,11 @@ export default function Ticket() {
   const { ticket, isLoading } = useTicket(ticketId)
 
   if (isLoading) {
-    return <Loader label={"Hang on! We are fetching your ticket details."} />
+    return (
+      <div className="h-56">
+        <Loader label={"Hang on! We are fetching your ticket details."} />
+      </div>
+    )
   }
 
   if (!ticket) {
