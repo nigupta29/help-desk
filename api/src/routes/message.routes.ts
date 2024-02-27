@@ -1,7 +1,10 @@
 import { Router } from "express"
-import { addMessageToTicket } from "../controllers/message.controllers"
+import {
+  addMessageToTicket,
+  getMessages,
+} from "../controllers/message.controllers"
 const router = Router()
 
-router.post("/:ticketId", addMessageToTicket)
+router.route("/:ticketId").get(getMessages).post(addMessageToTicket)
 
 export default router

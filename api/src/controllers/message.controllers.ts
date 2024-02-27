@@ -1,8 +1,16 @@
 import { Request, Response } from "express"
 import asyncHandler from "express-async-handler"
 import { z } from "zod"
+import { userSelector } from "../config/constants"
 import prisma from "../config/db"
 import { USER_ROLE } from "../config/enum"
+
+const MESSAGE_SELECT = {
+  id: true,
+  title: true,
+  createdAt: true,
+  user: { select: userSelector },
+}
 
 export const addMessageToTicket = asyncHandler(
   async (req: Request, res: Response) => {
@@ -32,6 +40,7 @@ export const addMessageToTicket = asyncHandler(
           ticketId: ticket.id,
           userId: user.id,
         },
+        select: MESSAGE_SELECT,
       })
 
       res.status(201).json({
@@ -46,3 +55,25 @@ export const addMessageToTicket = asyncHandler(
     }
   }
 )
+
+export const getMessages = asyncHandler(async (req: Request, res: Response) => {
+  const { ticketId } = req.params
+  const { user } = req
+
+  const whereClause =
+    user.role === USER_ROLE.Values.USER
+      ? { ticketId, userId: user.id }
+      : { ticketId }
+
+  const messages = await prisma.message.findMany({
+    where: whereClause,
+    select: MESSAGE_SELECT,
+  })
+
+  res.status(200).json({
+    message: "success",
+    data: {
+      messages,
+    },
+  })
+})
