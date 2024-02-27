@@ -41,10 +41,10 @@ export const USER_ROLE = z.enum(ROLE, {
 export const TITLE = (label: string) =>
   z
     .string({
-      required_error: `${label} Title is required`,
-      invalid_type_error: `${label} Title must be a string`
+      required_error: `${label} title is required`,
+      invalid_type_error: `${label} title must be a string`
     })
-    .min(5, { message: `${label} Title must be 5 or more characters` })
+    .min(5, { message: `${label} title must be 5 or more characters` })
 
 export const DESCRIPTION = z
   .string({

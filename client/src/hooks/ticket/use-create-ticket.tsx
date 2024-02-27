@@ -1,13 +1,13 @@
+import { ID } from "@/lib/constant"
 import { NewTicketSchemaType } from "@/lib/types"
 import { axiosInstance, showErrorMessage } from "@/lib/utils"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
-import { z } from "zod"
 
 const createTicketAPI = async (newTicketData: NewTicketSchemaType) => {
   const res = await axiosInstance.post("/tickets", newTicketData)
-  return z.string().uuid().parse(res.data.data.ticket.id)
+  return ID("Ticket").parse(res.data.data.ticket.id)
 }
 
 export default function useCreateTicket() {

@@ -81,14 +81,20 @@ export const newTicketSchema = z.object({
 })
 export type NewTicketSchemaType = z.infer<typeof newTicketSchema>
 
-/* MESSAGES SCHEMA */
 
+/* MESSAGE SCHEMA */
 export const messageSchema = z.object({
-  id: ID("Ticket Message"),
-  title: TITLE("Ticket Message"),
+  id: ID("Ticket message"),
+  title: TITLE("Ticket message"),
   createdAt: DATE("Message Created at"),
   user: userSchema
 })
 
 export const messagesSchema = z.array(messageSchema)
 export type MessageSchemaType = z.infer<typeof messageSchema>
+
+/* NEW MESSAGE SCHEMA */
+export const newMessageSchema = z.object({
+  title: TITLE("Ticket message")
+})
+export type NewMessageSchemaType = z.infer<typeof newMessageSchema>
