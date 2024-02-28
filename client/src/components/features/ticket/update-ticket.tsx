@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import {
   Sheet,
   SheetContent,
@@ -20,13 +21,15 @@ export default function UpdateTicket() {
         </Button>
       </SheetTrigger>
       <SheetContent>
-        <SheetHeader>
-          <SheetTitle>Update Ticket</SheetTitle>
-          <SheetDescription>
-            Make changes to your ticket here. Click save when you're done.
-          </SheetDescription>
-        </SheetHeader>
-        <UpdateTicketForm />
+        <ScrollArea className="h-full px-5">
+          <SheetHeader>
+            <SheetTitle>Update Ticket</SheetTitle>
+            <SheetDescription>
+              Make changes to your ticket here. Click save when you're done.
+            </SheetDescription>
+          </SheetHeader>
+          <UpdateTicketForm />
+        </ScrollArea>
       </SheetContent>
     </Sheet>
   )
