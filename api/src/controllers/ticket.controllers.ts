@@ -89,14 +89,13 @@ const userUpdateTicketSchema = z.object({
 const supportUpdateTicketSchema = z.object({
   priority: TICKET_PRIORITY.optional(),
   status: TICKET_STATUS.optional(),
+  assignedUserId: z.string().uuid().optional(),
 })
 
 const adminUpdateTicketSchema = userUpdateTicketSchema
   .merge(supportUpdateTicketSchema)
   .extend({
     productId: z.string().uuid().optional(),
-    assignedUserId: z.string().uuid().optional(),
-    authorUserId: z.string().uuid().optional(),
   })
 
 export const updateTicket = asyncHandler(
