@@ -1,4 +1,5 @@
 import Message from "@/components/features/message"
+import UpdateTicket from "@/components/features/ticket/update-ticket"
 import Loader from "@/components/layouts/loader"
 import { Separator } from "@/components/ui/separator"
 import {
@@ -35,11 +36,13 @@ export default function Ticket() {
   }
 
   return (
-    <div className="space-y-8">
-      <h1 className="text-3xl font-bold">Ticket Details</h1>
-
+    <div className="space-y-6">
+      <div className="flex items-center justify-between gap-10">
+        <h1 className="text-3xl font-bold">Ticket Details</h1>
+        <UpdateTicket />
+      </div>
       <div>
-        <h3 className="mb-2 text-2xl font-semibold">{`${ticket.title}`}</h3>
+        <h3 className="mb-4 text-2xl font-semibold">{`${ticket.title}`}</h3>
         <p className="text-base text-muted-foreground">{ticket.description}</p>
       </div>
 
