@@ -12,11 +12,8 @@ import useAddMessage from "@/hooks/message/use-add-message"
 import { NewMessageSchemaType, newMessageSchema } from "@/lib/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { useParams } from "react-router-dom"
 
 export default function AddMessageForm() {
-  const { ticketId = "" } = useParams()
-
   const form = useForm<NewMessageSchemaType>({
     resolver: zodResolver(newMessageSchema),
     defaultValues: {
@@ -24,7 +21,7 @@ export default function AddMessageForm() {
     }
   })
 
-  const { addMessageHandler, isLoading } = useAddMessage(ticketId)
+  const { addMessageHandler, isLoading } = useAddMessage()
 
   const isDisabled = isLoading || form.formState.isSubmitting
 

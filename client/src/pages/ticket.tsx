@@ -13,15 +13,14 @@ import {
 import useTicket from "@/hooks/ticket/use-ticket"
 import useUserStore from "@/hooks/user/use-user-store"
 import { getRelativeDate } from "@/lib/utils"
-import { Navigate, useParams } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 
 export default function Ticket() {
   const user = useUserStore((state) => state.user)
 
   const isUserRole = user?.role === "USER"
 
-  const { ticketId = "" } = useParams()
-  const { ticket, isLoading } = useTicket(ticketId)
+  const { ticket, isLoading } = useTicket()
 
   if (isLoading) {
     return (

@@ -1,12 +1,10 @@
 import Loader from "@/components/layouts/loader"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import useMessages from "@/hooks/message/use-messages"
-import { useParams } from "react-router-dom"
 import MessageListItem from "./message-list-item"
 
 export default function MessageList() {
-  const { ticketId = "" } = useParams()
-  const { messages, isLoading } = useMessages(ticketId)
+  const { messages, isLoading } = useMessages()
 
   if (isLoading) return <Loader label="Fetching recent messages" />
 
