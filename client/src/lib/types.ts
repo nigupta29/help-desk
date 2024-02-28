@@ -61,7 +61,10 @@ export const ticketSchema = z.object({
   id: ID("Ticket"),
   title: TITLE("Ticket"),
   status: TICKET_STATUS,
+  priority: TICKET_PRIORITY.optional(),
+  description: DESCRIPTION.optional(),
   product: productSchema,
+  createdAt: DATE("Ticket Created At").optional(),
   updatedAt: DATE("Ticket Updated At"),
   ticketAuthor: userSchema,
   supportUser: userSchema.nullable()

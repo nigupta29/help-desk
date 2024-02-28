@@ -73,7 +73,7 @@ export default function Ticket() {
               </>
             )}
             <TableCell>{ticket.supportUser?.name ?? "-"}</TableCell>
-            <TableCell>{getRelativeDate(ticket.createdAt)}</TableCell>
+            <TableCell>{getRelativeDate(ticket.createdAt as string)}</TableCell>
             <TableCell>{getRelativeDate(ticket.updatedAt)}</TableCell>
           </TableRow>
         </TableBody>

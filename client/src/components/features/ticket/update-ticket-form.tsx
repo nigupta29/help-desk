@@ -17,22 +17,44 @@ import {
 } from "@/components/ui/select"
 import { SheetFooter } from "@/components/ui/sheet"
 import { Textarea } from "@/components/ui/textarea"
+import useUpdateTicket from "@/hooks/ticket/use-update-ticket"
 import { PRIORITY, STATUS } from "@/lib/constant"
-import { UpdateTicketSchemaType, updateTicketSchema } from "@/lib/types"
+import {
+  UpdateTicketSchemaType,
+  ticketSchema,
+  updateTicketSchema
+} from "@/lib/types"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useQueryClient } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
+import { useParams } from "react-router"
 import ProductSelectItems from "../product/product-select-items"
 
 export default function UpdateTicketForm() {
+  const { ticketId } = useParams()
+  const queryClient = useQueryClient()
+  const ticketData = ticketSchema.parse(
+    queryClient.getQueryData(["tickets", { id: ticketId }])
+  )
+
   const form = useForm<UpdateTicketSchemaType>({
     resolver: zodResolver(updateTicketSchema),
     defaultValues: {
-      title: "",
-      description: ""
+      productId: ticketData.product.id,
+      title: ticketData.title,
+      description: ticketData.description,
+      status: ticketData.status,
+      priority: ticketData.priority,
+      assignedUserId: ticketData.supportUser?.id
     }
   })
 
+  const { updateTicketHandler, isLoading } = useUpdateTicket()
+
+  const isDisabled = form.formState.isSubmitting || isLoading
+
   const onSubmit = (values: UpdateTicketSchemaType) => {
+    updateTicketHandler(values)
     console.log(values)
   }
 
@@ -59,7 +81,7 @@ export default function UpdateTicketForm() {
             </FormItem>
           )}
         />
-        
+
         <FormField
           control={form.control}
           name="title"
@@ -140,30 +162,19 @@ export default function UpdateTicketForm() {
 
         <FormField
           control={form.control}
-          name="priority"
+          name="assignedUserId"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Priority</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Set Priority." />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {PRIORITY.map((value) => (
-                    <SelectItem key={value} value={value}>
-                      {value}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <FormLabel>Support User</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
         <SheetFooter>
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full" disabled={isDisabled}>
             Save changes
           </Button>
         </SheetFooter>
