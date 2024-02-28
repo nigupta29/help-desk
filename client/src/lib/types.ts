@@ -7,13 +7,11 @@ import {
   ID,
   NAME,
   PASSWORD,
+  TICKET_PRIORITY,
   TICKET_STATUS,
   TITLE,
   USER_ROLE
 } from "./constant"
-
-export const STATUS = ["OPEN", "REVIEW", "RESOLVED", "REJECTED"] as const
-export const PRIORITY = ["LOW", "MEDIUM", "HIGH"] as const
 
 /* CUSTOM ERROR to Explicitly handle AxiosError */
 export type CustomError = Error & {
@@ -81,6 +79,16 @@ export const newTicketSchema = z.object({
 })
 export type NewTicketSchemaType = z.infer<typeof newTicketSchema>
 
+/* UPDATE SCHEMA */
+export const updateTicketSchema = z.object({
+  title: TITLE("Ticket").optional(),
+  description: DESCRIPTION.optional(),
+  productId: ID("Product").optional(),
+  status: TICKET_STATUS.optional(),
+  priority: TICKET_PRIORITY.optional(),
+  assignedUserId: ID("Support ID").optional()
+})
+export type UpdateTicketSchemaType = z.infer<typeof updateTicketSchema>
 
 /* MESSAGE SCHEMA */
 export const messageSchema = z.object({

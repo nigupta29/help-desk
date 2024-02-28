@@ -53,13 +53,13 @@ export const DESCRIPTION = z
   })
   .min(5, { message: "Description must be 100 or more characters" })
 
-const STATUS = ["OPEN", "REVIEW", "RESOLVED", "REJECTED"] as const
+export const STATUS = ["OPEN", "REVIEW", "RESOLVED", "REJECTED"] as const
 export const TICKET_STATUS = z.enum(STATUS, {
   required_error: "Ticket Status is required",
   invalid_type_error: `Ticket Status can only be ${STATUS.toString()}`
 })
 
-const PRIORITY = ["LOW", "MEDIUM", "HIGH"] as const
+export const PRIORITY = ["LOW", "MEDIUM", "HIGH"] as const
 export const TICKET_PRIORITY = z.enum(PRIORITY, {
   required_error: "Ticket Priority is required",
   invalid_type_error: `Ticket Priority can only be ${PRIORITY.toString()}`
