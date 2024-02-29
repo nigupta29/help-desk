@@ -73,7 +73,7 @@ export default function UpdateTicketForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        {(isUserRole || isAdminRole) && (
+        {isAdminRole && (
           <>
             <FormField
               control={form.control}
@@ -98,7 +98,11 @@ export default function UpdateTicketForm() {
                 </FormItem>
               )}
             />
+          </>
+        )}
 
+        {(isUserRole || isAdminRole) && (
+          <>
             <FormField
               control={form.control}
               name="title"
@@ -203,7 +207,15 @@ export default function UpdateTicketForm() {
                     </FormControl>
                     <SelectContent>
                       {isSupportRole ? (
-                        <SelectItem value={user.id}>{user.name}</SelectItem>
+                        isTicketAssigned ? (
+                          <SelectItem
+                            value={ticketData.supportUser?.id as string}
+                          >
+                            {ticketData.supportUser?.name}
+                          </SelectItem>
+                        ) : (
+                          <SelectItem value={user.id}>{user.name}</SelectItem>
+                        )
                       ) : (
                         <SupportUserSelectItems />
                       )}
@@ -224,7 +236,18 @@ export default function UpdateTicketForm() {
         )}
 
         <SheetFooter>
-          <Button type="submit" className="w-full" disabled={isDisabled}>
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={
+              isDisabled ||
+              (isSupportRole &&
+                !(
+                  ticketData.supportUser?.id === user.id ||
+                  ticketData.supportUser === null
+                ))
+            }
+          >
             Save changes
           </Button>
         </SheetFooter>

@@ -27,6 +27,7 @@ export default function AddMessageForm() {
 
   function onSubmit(values: NewMessageSchemaType) {
     addMessageHandler(values)
+    form.reset()
   }
 
   return (

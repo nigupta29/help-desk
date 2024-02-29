@@ -13,8 +13,6 @@ import { EditIcon } from "lucide-react"
 import UpdateTicketForm from "./update-ticket-form"
 
 export default function UpdateTicket() {
-  // TODO: add tooltip and disable functionality for the support user to not toggle for the tickets that are not assigned to them
-
   const isOpen = useUpdateTicketModal((state) => state.open)
   const toggleModal = useUpdateTicketModal((state) => state.toggle)
 

@@ -17,7 +17,6 @@ import { Navigate } from "react-router-dom"
 
 export default function Ticket() {
   const user = useUserStore((state) => state.user)
-
   const isUserRole = user?.role === "USER"
 
   const { ticket, isLoading } = useTicket()
@@ -38,6 +37,7 @@ export default function Ticket() {
     <div className="space-y-6">
       <div className="flex items-center justify-between gap-10">
         <h1 className="text-3xl font-bold">Ticket Details</h1>
+
         <UpdateTicket />
       </div>
       <div>
