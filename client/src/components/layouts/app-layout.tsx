@@ -1,11 +1,16 @@
 import { Outlet } from "react-router-dom"
 import Navbar from "./navbar"
+import Container from "./container"
 
 export default function AppLayout() {
   return (
     <div>
       <Navbar />
-      <Outlet />
+      <main className="my-10">
+        <Container>
+          <Outlet />
+        </Container>
+      </main>
     </div>
   )
 }

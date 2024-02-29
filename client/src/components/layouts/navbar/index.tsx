@@ -9,7 +9,7 @@ export default function Navbar() {
   const user = useUserStore((state) => state.user)
 
   return (
-    <header className="p-2 md:p-4">
+    <header className="p-2 md:p-4 border-b-2">
       <Container>
         <div className="flex items-center justify-between">
           <Link to={"/"}>
