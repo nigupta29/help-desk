@@ -31,6 +31,7 @@ import { useQueryClient } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
 import { useParams } from "react-router"
 import ProductSelectItems from "../product/product-select-items"
+import SupportUserSelectItems from "../user/support-user-select-item"
 
 export default function UpdateTicketForm() {
   const { ticketId } = useParams()
@@ -42,6 +43,7 @@ export default function UpdateTicketForm() {
   const user = useUserStore((state) => state.user)
   const isUserRole = user?.role === USER_ROLE.Values.USER
   const isSupportRole = user?.role === USER_ROLE.Values.SUPPORT
+  const isAdminRole = user?.role === USER_ROLE.Values.ADMIN
 
   const { updateTicketHandler, isLoading } = useUpdateTicket()
   const form = useForm<UpdateTicketSchemaType>({
@@ -69,7 +71,7 @@ export default function UpdateTicketForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        {isUserRole && (
+        {(isUserRole || isAdminRole) && (
           <>
             <FormField
               control={form.control}
@@ -124,7 +126,7 @@ export default function UpdateTicketForm() {
             />
           </>
         )}
-        {isSupportRole && (
+        {(isSupportRole || isAdminRole) && (
           <>
             <FormField
               control={form.control}
@@ -194,15 +196,19 @@ export default function UpdateTicketForm() {
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Assign this to me." />
+                        <SelectValue placeholder="Assign this ticket." />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value={user.id}>{user.name}</SelectItem>
+                      {isSupportRole ? (
+                        <SelectItem value={user.id}>{user.name}</SelectItem>
+                      ) : (
+                        <SupportUserSelectItems />
+                      )}
                     </SelectContent>
                   </Select>
                   <FormDescription>
-                    {!isTicketAssigned && (
+                    {isSupportRole && !isTicketAssigned && (
                       <span>
                         You will automatically allocated to this ticket.
                       </span>

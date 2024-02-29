@@ -14,7 +14,7 @@ export default function useUsers() {
     error
   } = useQuery({
     queryKey: ["users"],
-    queryFn: getUsersAPI
+    queryFn: getUsersAPI,
   })
 
   if (error) {
