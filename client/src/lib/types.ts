@@ -48,6 +48,7 @@ export const userSchema = z.object({
   role: USER_ROLE
 })
 export type UserSchemaType = z.infer<typeof userSchema>
+export const usersSchema = z.array(userSchema)
 
 /* PRODUCT SCHEMA */
 const productSchema = z.object({
