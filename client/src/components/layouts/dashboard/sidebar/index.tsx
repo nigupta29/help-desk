@@ -2,9 +2,10 @@ import CreateTicket from "@/components/features/ticket/create-ticket"
 import UserOptions from "@/components/features/user/user-option"
 import { Separator } from "@/components/ui/separator"
 import useUserStore from "@/hooks/user/use-user-store"
-import { LayoutDashboardIcon, TicketSlashIcon } from "lucide-react"
+import { LayoutDashboardIcon, TicketSlashIcon, UsersIcon } from "lucide-react"
 import Logo from "../../logo"
 import SidebarItem from "./sidebar-item"
+import { USER_ROLE } from "@/lib/constant"
 
 export default function Sidebar() {
   const user = useUserStore((state) => state.user)
@@ -26,6 +27,15 @@ export default function Sidebar() {
           label="tickets"
           Icon={TicketSlashIcon}
         />
+        {user?.role === USER_ROLE.Values.ADMIN && (
+          <>
+            <SidebarItem
+              href="/dashboard/users"
+              label="Users"
+              Icon={UsersIcon}
+            />
+          </>
+        )}
       </nav>
       <Separator />
       {user?.role === "USER" && <CreateTicket />}
