@@ -23,7 +23,7 @@ if (getEnvValue("NODE_ENV") === "development") {
 // Routes
 app.use("/api/v1", indexRoutes)
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "live") {
   const __dirname = path.resolve()
   app.use(express.static(path.join(__dirname, "client", "dist")))
 
