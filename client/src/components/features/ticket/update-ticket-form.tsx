@@ -203,7 +203,15 @@ export default function UpdateTicketForm() {
                     </FormControl>
                     <SelectContent>
                       {isSupportRole ? (
-                        <SelectItem value={user.id}>{user.name}</SelectItem>
+                        isTicketAssigned ? (
+                          <SelectItem
+                            value={ticketData.supportUser?.id as string}
+                          >
+                            {ticketData.supportUser?.name}
+                          </SelectItem>
+                        ) : (
+                          <SelectItem value={user.id}>{user.name}</SelectItem>
+                        )
                       ) : (
                         <SupportUserSelectItems />
                       )}
@@ -224,7 +232,18 @@ export default function UpdateTicketForm() {
         )}
 
         <SheetFooter>
-          <Button type="submit" className="w-full" disabled={isDisabled}>
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={
+              isDisabled ||
+              (isSupportRole &&
+                !(
+                  ticketData.supportUser?.id === user.id ||
+                  ticketData.supportUser === null
+                ))
+            }
+          >
             Save changes
           </Button>
         </SheetFooter>
