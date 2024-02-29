@@ -18,11 +18,7 @@ export default function Login() {
   const { loginUserHandler, isLoading } = useLogin()
 
   const form = useForm<LoginSchemaType>({
-    resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: "john_doe@gmail.com",
-      password: "123456"
-    }
+    resolver: zodResolver(loginSchema)
   })
 
   const isDisabled = isLoading || form.formState.isSubmitting
