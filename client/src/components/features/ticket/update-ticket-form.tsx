@@ -124,7 +124,7 @@ export default function UpdateTicketForm() {
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea {...field} className="min-h-[100%]" />
+                    <Textarea {...field} className="h-52" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
