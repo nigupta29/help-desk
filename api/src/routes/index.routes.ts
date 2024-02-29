@@ -12,7 +12,7 @@ const router = Router()
 router.use("/auth", authRoutes)
 router.use("/products", productRoutes)
 
-router.use("/user", protectRoute, userRoutes)
+router.use("/users", protectRoute, userRoutes)
 router.use("/tickets", protectRoute, ticketRoutes)
 router.use("/messages", protectRoute, messageRoutes)
 
