@@ -19,6 +19,7 @@ import {
 import { SheetFooter } from "@/components/ui/sheet"
 import { Textarea } from "@/components/ui/textarea"
 import useUpdateTicket from "@/hooks/ticket/use-update-ticket"
+import useUpdateTicketModal from "@/hooks/ticket/use-update-ticket-modal"
 import useUserStore from "@/hooks/user/use-user-store"
 import { PRIORITY, STATUS, USER_ROLE } from "@/lib/constant"
 import {
@@ -62,10 +63,11 @@ export default function UpdateTicketForm() {
   const isTicketAssigned = ticketData.supportUser?.id
 
   const isDisabled = form.formState.isSubmitting || isLoading
+  const toggleModal = useUpdateTicketModal((state) => state.toggle)
 
   const onSubmit = (values: UpdateTicketSchemaType) => {
     updateTicketHandler(values)
-    console.log(values)
+    toggleModal()
   }
 
   return (
