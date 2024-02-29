@@ -48,8 +48,8 @@ export default function Dashboard() {
 
       <div>
         <p>
-          This project is built with React, Tailwind CSS, Shadow, Express,
-          Prisma, and TypeScript.
+          This project is built with React, Tailwind/ShadCN-UI, Express, Prisma,
+          and TypeScript.
         </p>
         <p>
           For updates and more information, check out the{" "}

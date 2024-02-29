@@ -21,7 +21,10 @@ export default function Hero() {
       </h5>
 
       <Table className="border">
-        <TableCaption>Your you can register with dump account.</TableCaption>
+        <TableCaption>
+          As this is a demo application you can use these accounts or you can register as
+          well.
+        </TableCaption>
         <TableHeader className="bg-secondary">
           <TableRow>
             <TableHead className="text-center">ROLE</TableHead>
@@ -51,8 +54,8 @@ export default function Hero() {
 
       <div>
         <p>
-          This project is built with React, Tailwind CSS, Shadow, Express,
-          Prisma, and TypeScript.
+          This project is built with React, Tailwind/ShadCN-UI, Express, Prisma,
+          and TypeScript.
         </p>
         <p>
           For updates and more information, check out the{" "}
@@ -60,7 +63,7 @@ export default function Hero() {
             href="https://github.com/nigupta29/help-desk"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary hover:underline"
+            className="text-secondary-foreground hover:underline"
           >
             GitHub repository
           </a>
